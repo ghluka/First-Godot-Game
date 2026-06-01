@@ -16,6 +16,8 @@ jobs:
 
       - name: Install Godot + export templates
         run: |
+          GODOT_VERSION=4.7-beta4
+          TEMPLATE_DIR=4.7.beta4
           GODOT_FILENAME="Godot_v${GODOT_VERSION}_linux.x86_64"
           TEMPLATES_FILENAME="Godot_v${GODOT_VERSION}_export_templates.tpz"
           BASE_URL="https://github.com/godotengine/godot-builds/releases/download/${GODOT_VERSION}"
@@ -27,9 +29,9 @@ jobs:
           mv "${GODOT_FILENAME}" /usr/local/bin/godot
           chmod +x /usr/local/bin/godot
 
-          mkdir -p ~/.local/share/godot/export_templates/${GODOT_VERSION}.beta4
+          mkdir -p ~/.local/share/godot/export_templates/${TEMPLATE_DIR}
           unzip -q "${TEMPLATES_FILENAME}" -d templates_tmp
-          mv templates_tmp/templates/* ~/.local/share/godot/export_templates/${GODOT_VERSION}.beta4/
+          mv templates_tmp/templates/* ~/.local/share/godot/export_templates/${TEMPLATE_DIR}/
 
       - name: Build Web export
         run: |
