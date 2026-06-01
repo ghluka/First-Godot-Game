@@ -35,8 +35,8 @@ jobs:
 
       - name: Build Web export
         run: |
-          mkdir -p build/web
-          godot --path mine-parkour --headless --verbose --export-release "Web" build/web/index.html
+          mkdir -p ${{ github.workspace }}/build/web
+          godot --path mine-parkour --headless --verbose --export-release "Web" ${{ github.workspace }}/build/web/index.html
 
       - uses: actions/upload-artifact@v4
         with:
