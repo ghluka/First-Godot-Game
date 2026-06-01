@@ -18,7 +18,7 @@ jobs:
         run: |
           GODOT_FILENAME="Godot_v${GODOT_VERSION}_linux.x86_64"
           TEMPLATES_FILENAME="Godot_v${GODOT_VERSION}_export_templates.tpz"
-          BASE_URL="https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}"
+          BASE_URL="https://github.com/godotengine/godot-builds/releases/download/${GODOT_VERSION}"
 
           wget -q "${BASE_URL}/${GODOT_FILENAME}.zip"
           wget -q "${BASE_URL}/${TEMPLATES_FILENAME}"
