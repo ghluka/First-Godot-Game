@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://dehhakyf5hef2"]
+
+[ext_resource type="Texture2D" uid="uid://b7frx67wec3kn" path="res://textures/dirt.png" id="1_75h2j"]
+[ext_resource type="Texture2D" uid="uid://dbnfsao8wkqwm" path="res://textures/stone.png" id="2_e43va"]
+[ext_resource type="Texture2D" uid="uid://ovj526v54rr2" path="res://textures/stone_bricks.png" id="3_t3wv1"]
+[ext_resource type="Texture2D" uid="uid://bd4b6qn4l427k" path="res://textures/oak_planks.png" id="4_sqfok"]
+[ext_resource type="Texture2D" uid="uid://c627jueq12kba" path="res://textures/obsidian.png" id="5_t5xci"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_p0cqp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_euvfv"]
+albedo_texture = ExtResource("1_75h2j")
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gv1bv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5c2f7"]
+albedo_texture = ExtResource("2_e43va")
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qdh5e"]
+albedo_texture = ExtResource("3_t3wv1")
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t5xci"]
+albedo_texture = ExtResource("4_sqfok")
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3yjo8"]
+albedo_texture = ExtResource("5_t5xci")
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 0
+
+[node name="Node3D" type="Node3D" unique_id=1132951588]
+
+[node name="Dirt" type="MeshInstance3D" parent="." unique_id=604818432]
+mesh = SubResource("BoxMesh_p0cqp")
+surface_material_override/0 = SubResource("StandardMaterial3D_euvfv")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Dirt" unique_id=1076530068]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Dirt/StaticBody3D" unique_id=357454540]
+shape = SubResource("BoxShape3D_gv1bv")
+
+[node name="Stone" type="MeshInstance3D" parent="." unique_id=1047848770]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+mesh = SubResource("BoxMesh_p0cqp")
+surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Stone" unique_id=90613954]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stone/StaticBody3D" unique_id=2053930000]
+shape = SubResource("BoxShape3D_gv1bv")
+
+[node name="StoneBricks" type="MeshInstance3D" parent="." unique_id=1835414023]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+mesh = SubResource("BoxMesh_p0cqp")
+surface_material_override/0 = SubResource("StandardMaterial3D_qdh5e")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="StoneBricks" unique_id=229614953]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StoneBricks/StaticBody3D" unique_id=289624264]
+shape = SubResource("BoxShape3D_gv1bv")
+
+[node name="OakPlanks" type="MeshInstance3D" parent="." unique_id=1548828983]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
+mesh = SubResource("BoxMesh_p0cqp")
+surface_material_override/0 = SubResource("StandardMaterial3D_t5xci")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="OakPlanks" unique_id=446997072]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="OakPlanks/StaticBody3D" unique_id=1813529377]
+shape = SubResource("BoxShape3D_gv1bv")
+
+[node name="Obsidian" type="MeshInstance3D" parent="." unique_id=1404423063]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+mesh = SubResource("BoxMesh_p0cqp")
+surface_material_override/0 = SubResource("StandardMaterial3D_3yjo8")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Obsidian" unique_id=2021889259]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obsidian/StaticBody3D" unique_id=1615878602]
+shape = SubResource("BoxShape3D_gv1bv")

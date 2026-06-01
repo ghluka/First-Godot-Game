@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://endlnn78u3pi"]
+
+[ext_resource type="PackedScene" uid="uid://d4nh1o8k50gqk" path="res://scenes/player.tscn" id="1_m802k"]
+[ext_resource type="MeshLibrary" uid="uid://cp6wmulvdgqpr" path="res://textures/blocks.meshlib" id="2_i2aat"]
+[ext_resource type="Shader" uid="uid://d0j4iavew45fw" path="res://shaders/lava.gdshader" id="3_2djvx"]
+[ext_resource type="Shader" uid="uid://d4lm7cpchrrrp" path="res://shaders/sky.gdshader" id="3_qdh5e"]
+[ext_resource type="Script" uid="uid://brwgfpo38n76a" path="res://scripts/kill.gd" id="3_uvc87"]
+
+[sub_resource type="Gradient" id="Gradient_qdh5e"]
+offsets = PackedFloat32Array(0.54942966, 0.57604563, 0.84220535)
+colors = PackedColorArray(0.9938981, 1, 0.89686763, 1, 0.987102, 1, 0.82886034, 1, 0.99976104, 0.9997609, 1.92523e-05, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qdh5e"]
+gradient = SubResource("Gradient_qdh5e")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qdh5e"]
+shader = ExtResource("3_qdh5e")
+shader_parameter/sky_top_color = Color(0.47843137, 0.72156864, 1, 1)
+shader_parameter/sky_horizon_color = Color(0.7529412, 0.9098039, 1, 1)
+shader_parameter/inv_sky_curve = 3.999999841054287
+shader_parameter/ground_bottom_color = Color(0.2, 0.169, 0.133, 1)
+shader_parameter/ground_horizon_color = Color(0.6463, 0.6558, 0.6708, 1)
+shader_parameter/inv_ground_curve = 30.000000670552268
+shader_parameter/sun_angle_max = 0.76604444
+shader_parameter/inv_sun_curve = 22.782017
+shader_parameter/exposure = 1.0
+shader_parameter/sunCurve = SubResource("GradientTexture1D_qdh5e")
+shader_parameter/sunLayers = 5.0
+shader_parameter/sunSize = 0.1
+shader_parameter/sky_cover_modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="Sky" id="Sky_50wog"]
+sky_material = SubResource("ShaderMaterial_qdh5e")
+
+[sub_resource type="Environment" id="Environment_ymt38"]
+background_mode = 2
+sky = SubResource("Sky_50wog")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.7
+fog_aerial_perspective = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_5c2f7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i2aat"]
+render_priority = 0
+shader = ExtResource("3_2djvx")
+shader_parameter/pixel_size = 4.0
+shader_parameter/bubble_speed = 2.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ymt38"]
+
+[node name="Node3D" type="Node3D" unique_id=445008130]
+
+[node name="Player" parent="." unique_id=530100035 instance=ExtResource("1_m802k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45901108, 2.3415592, 3.340798)
+
+[node name="GridMap" type="GridMap" parent="." unique_id=1257444207]
+mesh_library = ExtResource("2_i2aat")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(65535, 3, 589826, 65535, 2, 589826, 65534, 2, 589826, 65534, 3, 589826, 0, 3, 589826, 0, 2, 589826, 0, 4, 589826, 65535, 4, 589826, 65534, 4, 589826, 1, 2, 589826, 1, 3, 589826, 1, 4, 589826, 65534, 1, 589826, 65535, 1, 589826, 0, 1, 589826, 1, 1, 589826, 131071, 65535, 262147, 65536, 65535, 262147, 65536, 65534, 262147, 131071, 65534, 262147, 0, 65530, 589827, 65535, 65530, 393219, 0, 65529, 655363, 65535, 65529, 655363, 131071, 65528, 655363, 65536, 65528, 655363, 131071, 65527, 655363, 65536, 65527, 655363, 196607, 65526, 655363, 196607, 65525, 655363, 131072, 65525, 655363, 131072, 65526, 655363, 0, 65521, 655363, 65535, 65521, 655363, 65535, 65520, 655363, 0, 65520, 655363, 0, 65516, 655363, 65535, 65516, 655363, 65535, 65515, 655363, 0, 65515, 655363, 65535, 65511, 655363, 0, 65511, 655363, 0, 65510, 655363, 65535, 65510, 655363, 65534, 65506, 655362, 65534, 65505, 655362, 65535, 65505, 655362, 0, 65505, 655362, 0, 65506, 655362, 65535, 65506, 655362, 65535, 65504, 655362, 0, 65504, 655362, 65534, 65504, 655362, 1, 65505, 655362, 1, 65506, 655362, 1, 65504, 655362, 1, 65503, 655362, 0, 65503, 655362, 65535, 65503, 655362, 65534, 65503, 655362, 131070, 65504, 196612, 131071, 65504, 196612, 65536, 65504, 196612, 65537, 65504, 196612, 196606, 65504, 196612, 131073, 65504, 196612, 196609, 65504, 196612, 262142, 65504, 196612, 327678, 65504, 196612, 262145, 65504, 196612, 393214, 65504, 458756, 393215, 65504, 458756, 327681, 65504, 458756, 327680, 65504, 458756)
+}
+metadata/_editor_floor_ = Vector3(0, 5, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2118612556]
+environment = SubResource("Environment_ymt38")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=349444400]
+transform = Transform3D(0.8660254, 0.3535534, -0.3535534, 0, 0.7071068, 0.7071068, 0.5, -0.61237246, 0.61237246, 0, 0, 0)
+light_energy = 0.7
+shadow_enabled = true
+shadow_opacity = 0.3
+shadow_blur = 10.0
+
+[node name="Area3D" type="Area3D" parent="." unique_id=427085392]
+transform = Transform3D(2048, 0, 0, 0, 1, 0, 0, 0, 2048, 0, -0.5, 0)
+script = ExtResource("3_uvc87")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D" unique_id=1415350344]
+mesh = SubResource("BoxMesh_5c2f7")
+surface_material_override/0 = SubResource("ShaderMaterial_i2aat")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=402783672]
+shape = SubResource("BoxShape3D_ymt38")
+
+[connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]

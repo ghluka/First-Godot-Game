@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://d4nh1o8k50gqk"]
+
+[ext_resource type="Script" uid="uid://btjsw5xxm7v5s" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="Shader" uid="uid://ch2jklbm5upym" path="res://scenes/crosshair.gdshader" id="2_g2els"]
+[ext_resource type="Script" uid="uid://ug3642tcjf8n" path="res://scripts/swing.gd" id="2_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://bfds77i7txofs" path="res://textures/arm.png" id="3_dqkch"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5c2f7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3vyb7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3vyb7"]
+shader = ExtResource("2_g2els")
+shader_parameter/crosshair_size = Vector2(10, 2)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ur7pv"]
+
+[sub_resource type="Sky" id="Sky_dqkch"]
+sky_material = SubResource("ProceduralSkyMaterial_ur7pv")
+
+[sub_resource type="Environment" id="Environment_dqkch"]
+background_mode = 2
+sky = SubResource("Sky_dqkch")
+ambient_light_source = 3
+reflected_light_source = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xyuvl"]
+albedo_texture = ExtResource("3_dqkch")
+uv1_triplanar = true
+texture_filter = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_dqkch"]
+material = SubResource("StandardMaterial3D_xyuvl")
+size = Vector3(0.12, 0.5, 0.12)
+
+[node name="Player" type="CharacterBody3D" unique_id=530100035 groups=["player"]]
+script = ExtResource("1_3vyb7")
+
+[node name="Camera" type="Camera3D" parent="." unique_id=405034293]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+cull_mask = 1
+current = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1707737634]
+transform = Transform3D(0.8, 0, 0, 0, 1.8, 0, 0, 0, 0.8, 0, 0, 0)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_5c2f7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1061541542]
+transform = Transform3D(0.8, 0, 0, 0, 1.8, 0, 0, 0, 0.8, 0, 0, 0)
+shape = SubResource("BoxShape3D_3vyb7")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1574363452]
+material = SubResource("ShaderMaterial_3vyb7")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1140864702]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1767254187]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="Camera" type="Camera3D" parent="SubViewportContainer/SubViewport" unique_id=2140432066]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+cull_mask = 2
+environment = SubResource("Environment_dqkch")
+current = true
+
+[node name="ArmPivot" type="Node3D" parent="SubViewportContainer/SubViewport/Camera" unique_id=819955086]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -0.1, 0)
+script = ExtResource("2_qhqgy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera/ArmPivot" unique_id=1388367678]
+transform = Transform3D(0.9400352, -0.33810306, 0.044943456, -0.015134435, -0.17298742, -0.98480767, 0.34074113, 0.92507386, -0.16773126, 0, -0.25, -0.6)
+layers = 2
+cast_shadow = 0
+mesh = SubResource("BoxMesh_dqkch")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/Camera" unique_id=1094315218]
+transform = Transform3D(0.8660254, 0.3535534, -0.3535534, 0, 0.7071068, 0.7071068, 0.5, -0.61237246, 0.61237246, 0, 5.546239, 0)
+layers = 2
+light_energy = 0.7
+shadow_enabled = true
+shadow_opacity = 0.3
+shadow_blur = 10.0

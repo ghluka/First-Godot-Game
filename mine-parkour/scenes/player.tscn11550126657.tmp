@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://d4nh1o8k50gqk"]
+
+[ext_resource type="Script" uid="uid://btjsw5xxm7v5s" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="Shader" uid="uid://ch2jklbm5upym" path="res://scenes/crosshair.gdshader" id="2_g2els"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5c2f7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3vyb7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3vyb7"]
+shader = ExtResource("2_g2els")
+shader_parameter/crosshair_size = Vector2(10, 2)
+
+[node name="Player" type="CharacterBody3D" unique_id=530100035 groups=["player"]]
+script = ExtResource("1_3vyb7")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=405034293]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1707737634]
+transform = Transform3D(0.8, 0, 0, 0, 1.8, 0, 0, 0, 0.8, 0, 0, 0)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_5c2f7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1061541542]
+transform = Transform3D(0.8, 0, 0, 0, 1.8, 0, 0, 0, 0.8, 0, 0, 0)
+shape = SubResource("BoxShape3D_3vyb7")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1574363452]
+material = SubResource("ShaderMaterial_3vyb7")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Shadow" type="Decal" parent="." unique_id=1520722043]
