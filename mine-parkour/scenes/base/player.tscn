@@ -4,6 +4,9 @@
 [ext_resource type="Shader" uid="uid://ch2jklbm5upym" path="res://shaders/crosshair.gdshader" id="2_g2els"]
 [ext_resource type="Script" uid="uid://ug3642tcjf8n" path="res://scripts/swing.gd" id="2_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://bfds77i7txofs" path="res://textures/arm.png" id="3_dqkch"]
+[ext_resource type="Script" uid="uid://d2m0rgghv1qnj" path="res://scripts/openPause.gd" id="5_aitob"]
+[ext_resource type="Script" uid="uid://cod3yo0ev0cei" path="res://scripts/exit.gd" id="6_2hjov"]
+[ext_resource type="PackedScene" uid="uid://yapal5kn1gi0" path="res://scenes/settings.tscn" id="6_aitob"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_5c2f7"]
 
@@ -23,6 +26,8 @@ use_fov_override = true
 [sub_resource type="BoxMesh" id="BoxMesh_dqkch"]
 material = SubResource("StandardMaterial3D_xyuvl")
 size = Vector3(0.12, 0.5, 0.12)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s2lje"]
 
 [node name="Player" type="CharacterBody3D" unique_id=530100035 groups=["player"]]
 script = ExtResource("1_3vyb7")
@@ -60,3 +65,49 @@ script = ExtResource("2_qhqgy")
 transform = Transform3D(0.9400352, -0.33810306, 0.044943456, -0.015134435, -0.17298742, -0.98480767, 0.34074113, 0.92507386, -0.16773126, 0, -0.25, -0.6)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_dqkch")
+
+[node name="PauseMenu" type="PanelContainer" parent="." unique_id=1366813923]
+visible = false
+custom_minimum_size = Vector2(420, 360)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_s2lje")
+script = ExtResource("5_aitob")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu" unique_id=1421085451]
+layout_mode = 2
+
+[node name="Resume" type="Button" parent="PauseMenu/VBoxContainer" unique_id=1049530112]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 49
+text = "Resume"
+
+[node name="Settings" type="Button" parent="PauseMenu/VBoxContainer" unique_id=2097763818]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 49
+text = "Settings"
+
+[node name="Mainmenu" type="Button" parent="PauseMenu/VBoxContainer" unique_id=1245913467]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 49
+text = "Exit Level"
+script = ExtResource("6_2hjov")
+
+[node name="Settings" parent="." unique_id=1416574310 instance=ExtResource("6_aitob")]
+
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Resume" to="PauseMenu" method="hide"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Settings" to="PauseMenu/VBoxContainer" method="hide"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Settings" to="Settings" method="show"]
+[connection signal="hidden" from="Settings" to="PauseMenu/VBoxContainer" method="show"]

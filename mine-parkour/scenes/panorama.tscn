@@ -8,6 +8,7 @@
 [ext_resource type="Shader" uid="uid://bja8cfr8jg8d2" path="res://shaders/portal.gdshader" id="6_gutdt"]
 [ext_resource type="Script" uid="uid://b0028c8gr66gx" path="res://scripts/src.gd" id="6_wp2r4"]
 [ext_resource type="Resource" uid="uid://4liwc1wgsxqg" path="res://globals/levels.tres" id="7_vvln3"]
+[ext_resource type="PackedScene" uid="uid://yapal5kn1gi0" path="res://scenes/settings.tscn" id="9_vvln3"]
 
 [sub_resource type="Gradient" id="Gradient_wp2r4"]
 offsets = PackedFloat32Array(0.54942966, 0.57604563, 0.84220535)
@@ -73,6 +74,8 @@ shader_parameter/pixel_size = 64.0
 material = SubResource("ShaderMaterial_mcilc")
 size = Vector3(1.1, 1.1, 1)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aitob"]
+
 [node name="Panorama" type="Node3D" unique_id=586318969]
 
 [node name="GridMap" type="GridMap" parent="." unique_id=1953787943]
@@ -124,7 +127,6 @@ transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 0.2, 0, 5.5, -10.5)
 mesh = SubResource("BoxMesh_21xb6")
 
 [node name="MainMenu" type="PanelContainer" parent="." unique_id=1543498038]
-visible = false
 custom_minimum_size = Vector2(420, 360)
 anchors_preset = 8
 anchor_left = 0.5
@@ -137,6 +139,7 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_aitob")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenu" unique_id=2086135659]
 layout_mode = 2
@@ -161,6 +164,7 @@ text = "Source Code"
 script = ExtResource("6_wp2r4")
 
 [node name="LevelSelect" type="PanelContainer" parent="." unique_id=572315276]
+visible = false
 custom_minimum_size = Vector2(700, 540)
 anchors_preset = 8
 anchor_left = 0.5
@@ -195,8 +199,13 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 49
 text = "BACK"
 
+[node name="Settings" parent="." unique_id=1416574310 instance=ExtResource("9_vvln3")]
+
 [connection signal="body_entered" from="Lava" to="Lava" method="_on_body_entered"]
 [connection signal="pressed" from="MainMenu/VBoxContainer/Play" to="MainMenu" method="hide"]
 [connection signal="pressed" from="MainMenu/VBoxContainer/Play" to="LevelSelect" method="show"]
+[connection signal="pressed" from="MainMenu/VBoxContainer/Settings" to="MainMenu" method="hide"]
+[connection signal="pressed" from="MainMenu/VBoxContainer/Settings" to="Settings" method="show"]
 [connection signal="pressed" from="LevelSelect/MarginContainer/VBoxContainer/Button" to="MainMenu" method="show"]
 [connection signal="pressed" from="LevelSelect/MarginContainer/VBoxContainer/Button" to="LevelSelect" method="hide"]
+[connection signal="hidden" from="Settings" to="MainMenu" method="show"]

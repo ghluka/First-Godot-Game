@@ -13,6 +13,8 @@ func _ready():
 	target_rotation = rest_rotation
 
 func _input(event):
+	if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+		return
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			swing()

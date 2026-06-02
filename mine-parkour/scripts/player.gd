@@ -35,6 +35,8 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _unhandled_input(event):
+	if $PauseMenu.visible:
+		return
 	Input.use_accumulated_input = false
 	if event is InputEventMouseButton and event.pressed:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -50,6 +52,8 @@ func _unhandled_input(event):
 		head.rotation.x = camera_x_rotation
 
 func _physics_process(delta):
+	if $PauseMenu.visible:
+		return
 	var on_floor = is_on_floor()
 	var just_landed = on_floor and not was_on_floor
 

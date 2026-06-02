@@ -4,6 +4,8 @@ const SAVE_PATH = "user://save.cfg"
 
 var levels_unlocked: int = 1
 
+var show_level_select_on_load = false
+
 func _ready():
 	load_game()
 

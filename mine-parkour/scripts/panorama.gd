@@ -8,6 +8,10 @@ var angle: float = 0.0
 var center: Vector3 = Vector3.ZERO
 
 func _ready():
+	if Startup.show_level_select_on_load:
+		$"../MainMenu".hide()
+		$"../LevelSelect".show()
+	Startup.show_level_select_on_load = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	center = Vector3(0, height, 0)
 
