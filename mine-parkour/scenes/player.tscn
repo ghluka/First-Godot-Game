@@ -13,21 +13,11 @@
 shader = ExtResource("2_g2els")
 shader_parameter/crosshair_size = Vector2(10, 2)
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ur7pv"]
-
-[sub_resource type="Sky" id="Sky_dqkch"]
-sky_material = SubResource("ProceduralSkyMaterial_ur7pv")
-
-[sub_resource type="Environment" id="Environment_dqkch"]
-background_mode = 2
-sky = SubResource("Sky_dqkch")
-ambient_light_source = 3
-reflected_light_source = 2
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xyuvl"]
 albedo_texture = ExtResource("3_dqkch")
 uv1_triplanar = true
 texture_filter = 0
+use_fov_override = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_dqkch"]
 material = SubResource("StandardMaterial3D_xyuvl")
@@ -54,47 +44,18 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1140864702]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1767254187]
-transparent_bg = true
-handle_input_locally = false
-size = Vector2i(1152, 648)
-render_target_update_mode = 4
-
-[node name="Camera" type="Camera3D" parent="SubViewportContainer/SubViewport" unique_id=2140432066]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
-cull_mask = 2
-environment = SubResource("Environment_dqkch")
-current = true
-
-[node name="ArmPivot" type="Node3D" parent="SubViewportContainer/SubViewport/Camera" unique_id=819955086]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -0.1, 0)
-script = ExtResource("2_qhqgy")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera/ArmPivot" unique_id=1388367678]
-transform = Transform3D(0.9400352, -0.33810306, 0.044943456, -0.015134435, -0.17298742, -0.98480767, 0.34074113, 0.92507386, -0.16773126, 0, -0.25, -0.6)
-layers = 2
-cast_shadow = 0
-mesh = SubResource("BoxMesh_dqkch")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/Camera" unique_id=1094315218]
-transform = Transform3D(0.8660254, 0.3535534, -0.3535534, 0, 0.7071068, 0.7071068, 0.5, -0.61237246, 0.61237246, 0, 5.546239, 0)
-layers = 2
-light_energy = 0.7
-shadow_enabled = true
-shadow_opacity = 0.3
-shadow_blur = 10.0
-
 [node name="Head" type="Node3D" parent="." unique_id=2085669049]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 
 [node name="Camera" type="Camera3D" parent="Head" unique_id=405034293]
 cull_mask = 1
 current = true
+
+[node name="ArmPivot" type="Node3D" parent="Head/Camera" unique_id=819955086]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -0.100000024, 0)
+script = ExtResource("2_qhqgy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Head/Camera/ArmPivot" unique_id=1388367678]
+transform = Transform3D(0.9400352, -0.33810306, 0.044943456, -0.015134435, -0.17298742, -0.98480767, 0.34074113, 0.92507386, -0.16773126, 0, -0.25, -0.6)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_dqkch")
