@@ -20,9 +20,9 @@ shader_parameter/sky_horizon_color = Color(0.7529412, 0.9098039, 1, 1)
 shader_parameter/inv_sky_curve = 3.999999841054287
 shader_parameter/ground_bottom_color = Color(0.2, 0.169, 0.133, 1)
 shader_parameter/ground_horizon_color = Color(0.6463, 0.6558, 0.6708, 1)
-shader_parameter/inv_ground_curve = 30.000000670552268
-shader_parameter/sun_angle_max = 0.76604444
-shader_parameter/inv_sun_curve = 22.782017
+shader_parameter/inv_ground_curve = 30.0
+shader_parameter/sun_angle_max = 0.877
+shader_parameter/inv_sun_curve = 22.78
 shader_parameter/exposure = 1.0
 shader_parameter/sunCurve = SubResource("GradientTexture1D_qdh5e")
 shader_parameter/sunLayers = 5.0
@@ -53,7 +53,7 @@ shader_parameter/bubble_speed = 2.0
 [node name="Node3D" type="Node3D" unique_id=445008130]
 
 [node name="Player" parent="." unique_id=530100035 instance=ExtResource("1_m802k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45901108, 2.3415592, 3.340798)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 3)
 
 [node name="GridMap" type="GridMap" parent="." unique_id=1257444207]
 mesh_library = ExtResource("2_i2aat")
@@ -67,7 +67,7 @@ metadata/_editor_floor_ = Vector3(0, 5, 0)
 environment = SubResource("Environment_ymt38")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=349444400]
-transform = Transform3D(0.8660254, 0.3535534, -0.3535534, 0, 0.7071068, 0.7071068, 0.5, -0.61237246, 0.61237246, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -0.85626704, 0.5165334, 0, -0.5165334, -0.85626704, 0, 7.4991713, 0)
 light_energy = 0.7
 shadow_enabled = true
 shadow_opacity = 0.3

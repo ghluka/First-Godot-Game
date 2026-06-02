@@ -20,7 +20,8 @@ const FOV_SPRINT_BONUS = 10.0
 const FOV_SNEAK_PENALTY = 5.0
 const FOV_LERP_SPEED = 8.0
 
-@onready var camera = $Camera
+@onready var head = $Head
+@onready var camera = $Head/Camera
 var mouse_sensitivity = 0.002
 var camera_x_rotation = 0.0
 
@@ -42,10 +43,11 @@ func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		if event.relative.length() > 100:
 			return
-		rotate_y(-event.relative.x * mouse_sensitivity)
+		head.rotate_y(-event.relative.x * mouse_sensitivity)
 		camera_x_rotation -= event.relative.y * mouse_sensitivity
 		camera_x_rotation = clamp(camera_x_rotation, -PI/2, PI/2)
-		camera.rotation.x = camera_x_rotation
+
+		head.rotation.x = camera_x_rotation
 
 func _physics_process(delta):
 	var on_floor = is_on_floor()
@@ -70,21 +72,8 @@ func _physics_process(delta):
 		if velocity.y > 0 and _is_hitting_ceiling():
 			velocity.y = 0.0
 
-	# Jump — fires on landing frame if space held, or on press if grounded
-	# just_landed check means holding space auto-jumps each time you touch ground
-	var want_jump = Input.is_action_pressed("jump") and just_landed
-	want_jump = want_jump or (jump_buffer_timer > 0)
-	if want_jump and coyote_timer > 0:
-		velocity.y = JUMP_VELOCITY
-		coyote_timer = 0.0
-		jump_buffer_timer = 0.0
-
-	was_on_floor = on_floor
-
-	# Sneak
+	# Sneak / Sprint
 	is_sneaking = Input.is_action_pressed("sneak") and on_floor
-
-	# Sprint
 	if Input.is_action_pressed("sprint") and not Input.is_action_pressed("move_back") and not is_sneaking:
 		is_sprinting = true
 	if not Input.is_action_pressed("move_forward") or is_sneaking:
@@ -99,34 +88,50 @@ func _physics_process(delta):
 		0,
 		Input.get_axis("move_forward", "move_back")
 	)
-
-	var wish_dir = transform.basis * input_dir
+	var wish_dir = head.global_transform.basis * input_dir
+	wish_dir.y = 0
+	if wish_dir.length() > 0:
+		wish_dir = wish_dir.normalized()
 	var h_vel = Vector3(velocity.x, 0, velocity.z)
 
+	# ── Apply movement FIRST so deceleration is baked in before jump ──
 	if on_floor:
 		if is_sneaking and input_dir != Vector3.ZERO and _is_sneak_edge():
 			h_vel = Vector3.ZERO
+		elif input_dir == Vector3.ZERO:
+			# Decelerate to stop — this now happens BEFORE the jump fires
+			h_vel = h_vel.move_toward(Vector3.ZERO, GROUND_ACCEL * delta * 2.0)
+			if h_vel.length() < 0.05:
+				h_vel = Vector3.ZERO
 		else:
-			var friction = GROUND_FRICTION if input_dir == Vector3.ZERO else MOVING_FRICTION
-			h_vel *= max(0.0, 1.0 - friction * delta)
-			h_vel += wish_dir * GROUND_ACCEL * delta
-		if input_dir != Vector3.ZERO:
+			var target = wish_dir * speed
+			h_vel = h_vel.move_toward(target, GROUND_ACCEL * delta)
 			_try_step_up(h_vel, delta)
 	else:
-		# MC air control: you can redirect freely, you just can't gain speed beyond cap.
-		# Compare speed before and after adding impulse — if it went up past the limit,
-		# clamp back to whichever is larger: the cap, or what you had before (so
-		# external knockback momentum is preserved).
-		var speed_before = h_vel.length()
-		h_vel += wish_dir * AIR_ACCEL * delta
-		var speed_after = h_vel.length()
-		if speed_after > speed and speed_after > speed_before:
-			h_vel = h_vel.normalized() * max(speed_before, speed)
-
+		if input_dir == Vector3.ZERO:
+			# bleed velocity when no movement keys are held
+			h_vel = h_vel.move_toward(Vector3.ZERO, 6.0 * delta)
+		else:
+			var speed_before = h_vel.length()
+			h_vel += wish_dir.normalized() * AIR_ACCEL * delta
+			var speed_after = h_vel.length()
+			if speed_after > speed and speed_after > speed_before:
+				h_vel = h_vel.normalized() * speed
+	if input_dir == Vector3.ZERO:
+		h_vel = h_vel.move_toward(Vector3.ZERO, 6.0 * delta)
 	velocity.x = h_vel.x
 	velocity.z = h_vel.z
-	move_and_slide()
 
+	# ── Jump fires AFTER deceleration is written to velocity ──
+	var want_jump = (Input.is_action_pressed("jump") and just_landed) or (jump_buffer_timer > 0)
+
+	if want_jump and coyote_timer > 0:
+		velocity.y = JUMP_VELOCITY
+		coyote_timer = 0.0
+		jump_buffer_timer = 0.0
+
+	was_on_floor = on_floor
+	move_and_slide()
 	_apply_fov(delta, h_vel.length())
 
 func _apply_fov(delta: float, h_speed: float):
@@ -151,7 +156,7 @@ func _is_hitting_ceiling() -> bool:
 	return space.intersect_ray(params).size() > 0
 
 func _is_hitting_wall() -> bool:
-	for i in get_slide_collision_count():
+	for i in range(get_slide_collision_count()):
 		var col = get_slide_collision(i)
 		if abs(col.get_normal().y) < 0.3:
 			return true
