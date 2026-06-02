@@ -7,7 +7,7 @@ const JUMP_VELOCITY = 8.0
 const GRAVITY = 28.0
 const FALL_GRAVITY_MULT = 1.6
 const GROUND_ACCEL = 40.0
-const AIR_ACCEL = 18.0         # high enough to redirect snappily
+const AIR_ACCEL = 18.0
 const AIR_FRICTION = 1.0
 const GROUND_FRICTION = 18.0
 const MOVING_FRICTION = 8.0
@@ -29,7 +29,7 @@ var is_sprinting = false
 var is_sneaking = false
 var coyote_timer = 0.0
 var jump_buffer_timer = 0.0
-var was_on_floor = false        # track landing frame for hold-to-jump
+var was_on_floor = false 
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -94,12 +94,10 @@ func _physics_process(delta):
 		wish_dir = wish_dir.normalized()
 	var h_vel = Vector3(velocity.x, 0, velocity.z)
 
-	# ── Apply movement FIRST so deceleration is baked in before jump ──
 	if on_floor:
 		if is_sneaking and input_dir != Vector3.ZERO and _is_sneak_edge():
 			h_vel = Vector3.ZERO
 		elif input_dir == Vector3.ZERO:
-			# Decelerate to stop — this now happens BEFORE the jump fires
 			h_vel = h_vel.move_toward(Vector3.ZERO, GROUND_ACCEL * delta * 2.0)
 			if h_vel.length() < 0.05:
 				h_vel = Vector3.ZERO
@@ -109,7 +107,6 @@ func _physics_process(delta):
 			_try_step_up(h_vel, delta)
 	else:
 		if input_dir == Vector3.ZERO:
-			# bleed velocity when no movement keys are held
 			h_vel = h_vel.move_toward(Vector3.ZERO, 6.0 * delta)
 		else:
 			var speed_before = h_vel.length()
@@ -122,7 +119,6 @@ func _physics_process(delta):
 	velocity.x = h_vel.x
 	velocity.z = h_vel.z
 
-	# ── Jump fires AFTER deceleration is written to velocity ──
 	var want_jump = (Input.is_action_pressed("jump") and just_landed) or (jump_buffer_timer > 0)
 
 	if want_jump and coyote_timer > 0:

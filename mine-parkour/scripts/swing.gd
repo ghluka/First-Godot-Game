@@ -1,7 +1,7 @@
 extends Node3D
 
 @export var swing_speed: float = 12.0
-@export var swing_angle: float = -25.0  # degrees forward
+@export var swing_angle: float = -25.0
 @export var return_speed: float = 8.0
 
 var is_swinging: bool = false
@@ -21,7 +21,7 @@ func swing():
 	if is_swinging:
 		return
 	is_swinging = true
-	# Snap to a forward-swung position, then return
+
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_SINE)

@@ -14,6 +14,7 @@ shader = ExtResource("2_g2els")
 shader_parameter/crosshair_size = Vector2(10, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xyuvl"]
+no_depth_test = true
 albedo_texture = ExtResource("3_dqkch")
 uv1_triplanar = true
 texture_filter = 0
@@ -48,7 +49,7 @@ mouse_filter = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 
 [node name="Camera" type="Camera3D" parent="Head" unique_id=405034293]
-cull_mask = 1
+cull_mask = 3
 current = true
 
 [node name="ArmPivot" type="Node3D" parent="Head/Camera" unique_id=819955086]

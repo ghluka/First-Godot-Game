@@ -4,11 +4,10 @@ uniform float pixel_size = 4.0;
 uniform float bubble_speed = 2.0;
 
 void fragment() {
-    // World space position — doesn't rotate with camera
     vec3 world_pos = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).xyz * 64.0;
     vec2 uv = floor(world_pos.xz / pixel_size) * pixel_size;
     
-    float t = floor(TIME * bubble_speed * 4.0) / 4.0;  // stepped time = pixelart animation frames
+    float t = floor(TIME * bubble_speed * 4.0) / 4.0;
     float n1 = sin(uv.x * 0.3 + sin(uv.y * 0.2 + t));
     float n2 = cos(uv.y * 0.25 + cos(uv.x * 0.15 + t * 0.7));
     float n3 = sin((uv.x + uv.y) * 0.2 + t * 0.5);
