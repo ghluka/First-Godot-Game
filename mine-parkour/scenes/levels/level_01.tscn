@@ -67,14 +67,14 @@ metadata/_editor_floor_ = Vector3(0, 5, 0)
 environment = SubResource("Environment_ymt38")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=349444400]
-transform = Transform3D(1, 0, 0, 0, -0.85626704, 0.5165334, 0, -0.5165334, -0.85626704, 0, 7.4991713, 0)
+transform = Transform3D(1, 0, 0, 0, -0.819152, 0.5735764, 0, -0.5735764, -0.819152, 0, 7.4991713, 0)
 light_energy = 0.7
 shadow_enabled = true
 shadow_opacity = 0.3
 shadow_blur = 10.0
 
 [node name="Area3D" type="Area3D" parent="." unique_id=427085392]
-transform = Transform3D(2048, 0, 0, 0, 1, 0, 0, 0, 2048, 0, -0.5, 0)
+transform = Transform3D(2048, 0, 0, 0, 1, 0, 0, 0, 2048, 0, -1, 0)
 script = ExtResource("3_uvc87")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D" unique_id=1415350344]
@@ -83,5 +83,14 @@ surface_material_override/0 = SubResource("ShaderMaterial_i2aat")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=402783672]
 shape = SubResource("BoxShape3D_ymt38")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Area3D" unique_id=1830461471]
+transform = Transform3D(0.00048828125, 0, 0, 0, -0.000287005, -0.8670818, 0, 0.0004971072, -0.50061, 0, -5, 0)
+light_color = Color(0.972549, 0.26666668, 0.28235295, 1)
+light_energy = 0.5
+light_indirect_energy = 0.0
+light_angular_distance = 90.0
+light_specular = 0.0
+light_bake_mode = 1
 
 [connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]
