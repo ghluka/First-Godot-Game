@@ -35,13 +35,15 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _unhandled_input(event):
+	if event.is_action_pressed("ui_cancel"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	if not Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		$PauseMenu.show()
 	if $PauseMenu.visible:
 		return
 	Input.use_accumulated_input = false
 	if event is InputEventMouseButton and event.pressed:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	if event.is_action_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	if event is InputEventMouseMotion:
 		if event.relative.length() > 100:
 			return
@@ -123,7 +125,7 @@ func _physics_process(delta):
 	velocity.x = h_vel.x
 	velocity.z = h_vel.z
 
-	var want_jump = (Input.is_action_pressed("jump") and just_landed) or (jump_buffer_timer > 0)
+	var want_jump = Input.is_action_pressed("jump") and (just_landed or jump_buffer_timer > 0)
 
 	if want_jump and coyote_timer > 0:
 		velocity.y = JUMP_VELOCITY
