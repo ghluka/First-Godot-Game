@@ -1,17 +1,17 @@
 [gd_scene format=3 uid="uid://endlnn78u3pi"]
 
-[ext_resource type="PackedScene" uid="uid://d4nh1o8k50gqk" path="res://scenes/player.tscn" id="1_m802k"]
+[ext_resource type="PackedScene" uid="uid://d4nh1o8k50gqk" path="res://scenes/base/player.tscn" id="1_m802k"]
 [ext_resource type="MeshLibrary" uid="uid://cp6wmulvdgqpr" path="res://textures/blocks.meshlib" id="2_i2aat"]
 [ext_resource type="Shader" uid="uid://d0j4iavew45fw" path="res://shaders/lava.gdshader" id="3_2djvx"]
 [ext_resource type="Shader" uid="uid://d4lm7cpchrrrp" path="res://shaders/sky.gdshader" id="3_qdh5e"]
-[ext_resource type="Script" uid="uid://brwgfpo38n76a" path="res://scripts/kill.gd" id="3_uvc87"]
+[ext_resource type="Script" uid="uid://bjcwsxpniijkr" path="res://scripts/finish.gd" id="6_1ey3t"]
 [ext_resource type="Shader" uid="uid://bja8cfr8jg8d2" path="res://shaders/portal.gdshader" id="6_50wog"]
 
 [sub_resource type="Gradient" id="Gradient_qdh5e"]
 offsets = PackedFloat32Array(0.54942966, 0.57604563, 0.84220535)
 colors = PackedColorArray(0.9938981, 1, 0.89686763, 1, 0.987102, 1, 0.82886034, 1, 0.99976104, 0.9997609, 1.92523e-05, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_qdh5e"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_t0hvh"]
 gradient = SubResource("Gradient_qdh5e")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qdh5e"]
@@ -25,21 +25,29 @@ shader_parameter/inv_ground_curve = 30.0
 shader_parameter/sun_angle_max = 0.877
 shader_parameter/inv_sun_curve = 22.78
 shader_parameter/exposure = 1.0
-shader_parameter/sunCurve = SubResource("GradientTexture1D_qdh5e")
+shader_parameter/sunCurve = SubResource("GradientTexture1D_t0hvh")
 shader_parameter/sunLayers = 5.0
 shader_parameter/sunSize = 0.1
 shader_parameter/sky_cover_modulate = Color(1, 1, 1, 1)
 
-[sub_resource type="Sky" id="Sky_50wog"]
+[sub_resource type="Sky" id="Sky_kfebt"]
 sky_material = SubResource("ShaderMaterial_qdh5e")
 
 [sub_resource type="Environment" id="Environment_ymt38"]
 background_mode = 2
-sky = SubResource("Sky_50wog")
+sky = SubResource("Sky_kfebt")
 ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.7
 fog_aerial_perspective = 1.0
+
+[sub_resource type="GDScript" id="GDScript_21xb6"]
+script/source = "extends Area3D
+
+func _on_body_entered(body):
+	if body.is_in_group(\"player\"):
+		get_tree().call_deferred(\"reload_current_scene\")
+"
 
 [sub_resource type="BoxMesh" id="BoxMesh_5c2f7"]
 
@@ -51,7 +59,7 @@ shader_parameter/bubble_speed = 2.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ymt38"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mcilc"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r72dd"]
 render_priority = 0
 shader = ExtResource("6_50wog")
 shader_parameter/time_speed = 1.0
@@ -60,7 +68,10 @@ shader_parameter/swirl_speed = 1.5
 shader_parameter/pixel_size = 64.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_ymt38"]
-material = SubResource("ShaderMaterial_mcilc")
+material = SubResource("ShaderMaterial_r72dd")
+size = Vector3(1.1, 1.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ijn0p"]
 size = Vector3(1.1, 1.1, 1)
 
 [node name="Node3D" type="Node3D" unique_id=445008130]
@@ -88,7 +99,7 @@ shadow_blur = 10.0
 
 [node name="Lava" type="Area3D" parent="." unique_id=427085392]
 transform = Transform3D(2048, 0, 0, 0, 1, 0, 0, 0, 2048, 0, -1, 0)
-script = ExtResource("3_uvc87")
+script = SubResource("GDScript_21xb6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Lava" unique_id=1415350344]
 mesh = SubResource("BoxMesh_5c2f7")
@@ -110,4 +121,11 @@ light_bake_mode = 1
 transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 0.2, 0, 3.5, -31.5)
 mesh = SubResource("BoxMesh_ymt38")
 
+[node name="Area3D" type="Area3D" parent="Portal" unique_id=96331741]
+script = ExtResource("6_1ey3t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Portal/Area3D" unique_id=1744561571]
+shape = SubResource("BoxShape3D_ijn0p")
+
 [connection signal="body_entered" from="Lava" to="Lava" method="_on_body_entered"]
+[connection signal="body_entered" from="Portal/Area3D" to="Portal/Area3D" method="_on_body_entered"]

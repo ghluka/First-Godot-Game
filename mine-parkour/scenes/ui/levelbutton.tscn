@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dp5g5rjycmjly"]
+
+[ext_resource type="Script" uid="uid://dgbbegiiaf1r6" path="res://scripts/select.gd" id="1_sefkk"]
+[ext_resource type="Texture2D" uid="uid://br8w7y0c4m4o8" path="res://textures/lock.png" id="2_tevdf"]
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" unique_id=579464179]
+stretch_mode = 3
+
+[node name="Button" type="Button" parent="." unique_id=1816516857]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 49
+text = "n"
+script = ExtResource("1_sefkk")
+
+[node name="Lock" type="TextureRect" parent="Button" unique_id=1802460373]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_tevdf")

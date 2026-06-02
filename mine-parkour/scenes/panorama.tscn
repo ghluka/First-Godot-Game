@@ -1,0 +1,202 @@
+[gd_scene format=3 uid="uid://df8w3836ws87f"]
+
+[ext_resource type="MeshLibrary" uid="uid://cp6wmulvdgqpr" path="res://textures/blocks.meshlib" id="1_0ktqt"]
+[ext_resource type="Shader" uid="uid://d4lm7cpchrrrp" path="res://shaders/sky.gdshader" id="2_0guyd"]
+[ext_resource type="Shader" uid="uid://d0j4iavew45fw" path="res://shaders/lava.gdshader" id="4_21xb6"]
+[ext_resource type="Script" uid="uid://cvj4loiw3c2xq" path="res://scripts/panorama.gd" id="5_0guyd"]
+[ext_resource type="Script" uid="uid://cdw5itdytumc8" path="res://scripts/levelfill.gd" id="6_21xb6"]
+[ext_resource type="Shader" uid="uid://bja8cfr8jg8d2" path="res://shaders/portal.gdshader" id="6_gutdt"]
+[ext_resource type="Script" uid="uid://b0028c8gr66gx" path="res://scripts/src.gd" id="6_wp2r4"]
+[ext_resource type="Resource" uid="uid://4liwc1wgsxqg" path="res://globals/levels.tres" id="7_vvln3"]
+
+[sub_resource type="Gradient" id="Gradient_wp2r4"]
+offsets = PackedFloat32Array(0.54942966, 0.57604563, 0.84220535)
+colors = PackedColorArray(0.9938981, 1, 0.89686763, 1, 0.987102, 1, 0.82886034, 1, 0.99976104, 0.9997609, 1.92523e-05, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qdh5e"]
+gradient = SubResource("Gradient_wp2r4")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vvln3"]
+shader = ExtResource("2_0guyd")
+shader_parameter/sky_top_color = Color(0.47843137, 0.72156864, 1, 1)
+shader_parameter/sky_horizon_color = Color(0.7529412, 0.9098039, 1, 1)
+shader_parameter/inv_sky_curve = 3.999999841054287
+shader_parameter/ground_bottom_color = Color(0.2, 0.169, 0.133, 1)
+shader_parameter/ground_horizon_color = Color(0.6463, 0.6558, 0.6708, 1)
+shader_parameter/inv_ground_curve = 30.0
+shader_parameter/sun_angle_max = 0.877
+shader_parameter/inv_sun_curve = 22.78
+shader_parameter/exposure = 1.0
+shader_parameter/sunCurve = SubResource("GradientTexture1D_qdh5e")
+shader_parameter/sunLayers = 5.0
+shader_parameter/sunSize = 0.1
+shader_parameter/sky_cover_modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="Sky" id="Sky_50wog"]
+sky_material = SubResource("ShaderMaterial_vvln3")
+
+[sub_resource type="Environment" id="Environment_f653d"]
+background_mode = 2
+sky = SubResource("Sky_50wog")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.7
+fog_aerial_perspective = 1.0
+
+[sub_resource type="GDScript" id="GDScript_21xb6"]
+script/source = "extends Area3D
+
+func _on_body_entered(body):
+	if body.is_in_group(\"player\"):
+		get_tree().call_deferred(\"reload_current_scene\")
+"
+
+[sub_resource type="BoxMesh" id="BoxMesh_1tdjk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o00j1"]
+render_priority = 0
+shader = ExtResource("4_21xb6")
+shader_parameter/pixel_size = 4.0
+shader_parameter/bubble_speed = 2.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mdrbh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mcilc"]
+render_priority = 0
+shader = ExtResource("6_gutdt")
+shader_parameter/time_speed = 1.0
+shader_parameter/distortion_strength = 0.35
+shader_parameter/swirl_speed = 1.5
+shader_parameter/pixel_size = 64.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_21xb6"]
+material = SubResource("ShaderMaterial_mcilc")
+size = Vector3(1.1, 1.1, 1)
+
+[node name="Panorama" type="Node3D" unique_id=586318969]
+
+[node name="GridMap" type="GridMap" parent="." unique_id=1953787943]
+mesh_library = ExtResource("1_0ktqt")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(131064, 65531, 983043, 131065, 65531, 983043, 131064, 65530, 983043, 131065, 65530, 983043, 196600, 65535, 327683, 196599, 65535, 327683, 196599, 65534, 327683, 196600, 65534, 327683, 196600, 2, 327683, 196601, 2, 327683, 196601, 3, 327683, 196600, 3, 327683, 196602, 6, 917507, 196603, 6, 917507, 196603, 7, 917507, 196602, 7, 917507, 131069, 8, 917507, 131069, 9, 917507, 131070, 9, 917507, 131070, 8, 917507, 2, 9, 917507, 1, 9, 917507, 1, 8, 917507, 2, 8, 917507, 65541, 8, 917507, 65541, 7, 917507, 65542, 7, 917507, 65542, 8, 917507, 131080, 5, 917507, 131079, 5, 917507, 131079, 4, 917507, 131080, 4, 917507, 131081, 2, 917507, 131081, 1, 917507, 131080, 1, 917507, 131080, 2, 917507, 65544, 65534, 917507, 65544, 65535, 917507, 65543, 65535, 917507, 65543, 65534, 917507, 65542, 65530, 917507, 65542, 65531, 917507, 65543, 65531, 917507, 65543, 65530, 917507, 196603, 65528, 983043, 196602, 65528, 983043, 196603, 65527, 983043, 196602, 65527, 983043, 196606, 65526, 196610, 196606, 65527, 196610, 196607, 65526, 196610, 196607, 65527, 196610, 131076, 65528, 917507, 131077, 65528, 917507, 131077, 65527, 917507, 131076, 65527, 917507, 131072, 65527, 196610, 131073, 65527, 196610, 131074, 65527, 196610, 131074, 65526, 196610, 131073, 65526, 196610, 131072, 65526, 196610, 196605, 65527, 196610, 196605, 65526, 196610, 196605, 65525, 196610, 196606, 65525, 196610, 196607, 65525, 196610, 131072, 65525, 196610, 131073, 65525, 196610, 131074, 65525, 196610, 131074, 65524, 196610, 131074, 65523, 196610, 131073, 65524, 196610, 131072, 65524, 196610, 196607, 65524, 196610, 196606, 65524, 196610, 196605, 65524, 196610, 196605, 65523, 196610, 196606, 65523, 196610, 196607, 65523, 196610, 131072, 65523, 196610, 131073, 65523, 196610, 196609, 65525, 196612, 196608, 65525, 196612, 262143, 65525, 196612, 262142, 65525, 196612, 458752, 65525, 1376260, 524287, 65525, 1376260, 524286, 65525, 1376260, 458753, 65525, 393220, 458750, 65525, 393220, 393217, 65525, 393220, 327681, 65525, 393220, 393214, 65525, 393220, 262145, 65525, 393220, 327678, 65525, 393220)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1623008551]
+environment = SubResource("Environment_f653d")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=596013163]
+transform = Transform3D(1, 0, 0, 0, -0.819152, 0.5735764, 0, -0.5735764, -0.819152, 0, 7.4991713, 0)
+light_energy = 0.7
+shadow_enabled = true
+shadow_opacity = 0.3
+shadow_blur = 10.0
+
+[node name="Lava" type="Area3D" parent="." unique_id=731662417]
+transform = Transform3D(2048, 0, 0, 0, 1, 0, 0, 0, 2048, 0, -1, 0)
+script = SubResource("GDScript_21xb6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Lava" unique_id=210996644]
+mesh = SubResource("BoxMesh_1tdjk")
+surface_material_override/0 = SubResource("ShaderMaterial_o00j1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Lava" unique_id=1750904167]
+shape = SubResource("BoxShape3D_mdrbh")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Lava" unique_id=1466029444]
+transform = Transform3D(0.00048828125, 0, 0, 0, -0.000287005, -0.8670818, 0, 0.0004971072, -0.50061, 0, -5, 0)
+light_color = Color(0.972549, 0.26666668, 0.28235295, 1)
+light_energy = 0.5
+light_indirect_energy = 0.0
+light_angular_distance = 90.0
+light_specular = 0.0
+light_bake_mode = 1
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1289985437]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.367337, 0)
+current = true
+fov = 87.6
+script = ExtResource("5_0guyd")
+
+[node name="Portal" type="MeshInstance3D" parent="." unique_id=1383209150]
+transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 0.2, 0, 5.5, -10.5)
+mesh = SubResource("BoxMesh_21xb6")
+
+[node name="MainMenu" type="PanelContainer" parent="." unique_id=1543498038]
+visible = false
+custom_minimum_size = Vector2(420, 360)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu" unique_id=2086135659]
+layout_mode = 2
+
+[node name="Play" type="Button" parent="MainMenu/VBoxContainer" unique_id=88432412]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 49
+text = "Level Select"
+
+[node name="Settings" type="Button" parent="MainMenu/VBoxContainer" unique_id=1190282080]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 49
+text = "Settings"
+
+[node name="Src" type="Button" parent="MainMenu/VBoxContainer" unique_id=321476216]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 49
+text = "Source Code"
+script = ExtResource("6_wp2r4")
+
+[node name="LevelSelect" type="PanelContainer" parent="." unique_id=572315276]
+custom_minimum_size = Vector2(700, 540)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="LevelSelect" unique_id=1712168121]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelSelect/MarginContainer" unique_id=698985753]
+layout_mode = 2
+
+[node name="FlowContainer" type="FlowContainer" parent="LevelSelect/MarginContainer/VBoxContainer" unique_id=1112210417]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("6_21xb6")
+levelList = ExtResource("7_vvln3")
+
+[node name="Button" type="Button" parent="LevelSelect/MarginContainer/VBoxContainer" unique_id=305222902]
+layout_mode = 2
+theme_override_font_sizes/font_size = 49
+text = "BACK"
+
+[connection signal="body_entered" from="Lava" to="Lava" method="_on_body_entered"]
+[connection signal="pressed" from="MainMenu/VBoxContainer/Play" to="MainMenu" method="hide"]
+[connection signal="pressed" from="MainMenu/VBoxContainer/Play" to="LevelSelect" method="show"]
+[connection signal="pressed" from="LevelSelect/MarginContainer/VBoxContainer/Button" to="MainMenu" method="show"]
+[connection signal="pressed" from="LevelSelect/MarginContainer/VBoxContainer/Button" to="LevelSelect" method="hide"]

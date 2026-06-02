@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="MineParkour"
-run/main_scene="uid://endlnn78u3pi"
+run/main_scene="uid://df8w3836ws87f"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Startup="*uid://b8sb27mwmokrs"
 
 [display]
 
