@@ -22,7 +22,6 @@ const FOV_LERP_SPEED = 8.0
 
 @onready var head = $Head
 @onready var camera = $Head/Camera
-var mouse_sensitivity = 0.002
 var camera_x_rotation = 0.0
 
 var is_sprinting = false
@@ -47,8 +46,8 @@ func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		if event.relative.length() > 100:
 			return
-		head.rotate_y(-event.relative.x * mouse_sensitivity)
-		camera_x_rotation -= event.relative.y * mouse_sensitivity
+		head.rotate_y(-event.relative.x * Startup.mouse_sens)
+		camera_x_rotation -= event.relative.y * Startup.mouse_sens
 		camera_x_rotation = clamp(camera_x_rotation, -PI/2, PI/2)
 
 		head.rotation.x = camera_x_rotation
