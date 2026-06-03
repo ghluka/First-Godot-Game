@@ -28,7 +28,7 @@ var is_sprinting = false
 var is_sneaking = false
 var coyote_timer = 0.0
 var jump_buffer_timer = 0.0
-var was_on_floor = false 
+var was_on_floor = false
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -50,7 +50,7 @@ func _unhandled_input(event):
 		camera_x_rotation -= event.relative.y * Startup.mouse_sens
 		camera_x_rotation = clamp(camera_x_rotation, -PI/2, PI/2)
 
-		head.rotation.x = camera_x_rotation
+		camera.rotation.x = camera_x_rotation
 
 func _physics_process(delta):
 	if $PauseMenu.visible:
@@ -93,7 +93,9 @@ func _physics_process(delta):
 		0,
 		Input.get_axis("move_forward", "move_back")
 	)
-	var wish_dir = head.global_transform.basis * input_dir
+
+	var flat_basis = Basis(Vector3.UP, head.rotation.y)
+	var wish_dir = flat_basis * input_dir
 	wish_dir.y = 0
 	if wish_dir.length() > 0:
 		wish_dir = wish_dir.normalized()
@@ -133,19 +135,18 @@ func _physics_process(delta):
 
 	was_on_floor = on_floor
 	move_and_slide()
-	_apply_fov(delta, h_vel.length())
 
-func _apply_fov(delta: float, h_speed: float):
+	_apply_fov(delta, h_vel.length(), speed)
+
+func _apply_fov(delta: float, h_speed: float, current_speed_cap: float):
 	var target_fov: float
 	if is_sneaking:
 		target_fov = FOV_BASE - FOV_SNEAK_PENALTY
 	else:
-		var speed_ref = SPRINT_SPEED if is_sprinting else WALK_SPEED
-		var t = clamp(h_speed / speed_ref, 0.0, 1.0)
+		var t = clamp(h_speed / current_speed_cap, 0.0, 1.0)
 		var bonus = FOV_SPRINT_BONUS if is_sprinting else 0.0
 		target_fov = FOV_BASE + bonus * t
 	camera.fov = lerp(camera.fov, target_fov, FOV_LERP_SPEED * delta)
-	
 
 func _is_hitting_ceiling() -> bool:
 	var space = get_world_3d().direct_space_state
@@ -179,9 +180,11 @@ func _try_step_up(h_vel: Vector3, _delta: float):
 	var space = get_world_3d().direct_space_state
 	var move_dir = h_vel.normalized()
 
+	var probe_dist = clamp(h_vel.length() * _delta + 0.2, 0.2, 0.45)
+
 	var wall_check = PhysicsRayQueryParameters3D.create(
 		global_position + Vector3.UP * 0.05,
-		global_position + Vector3.UP * 0.05 + move_dir * 0.4
+		global_position + Vector3.UP * 0.05 + move_dir * probe_dist
 	)
 	wall_check.exclude = [self]
 	if space.intersect_ray(wall_check).is_empty():
@@ -190,19 +193,23 @@ func _try_step_up(h_vel: Vector3, _delta: float):
 	var top_pos = global_position + Vector3.UP * STEP_HEIGHT
 	var top_check = PhysicsRayQueryParameters3D.create(
 		top_pos,
-		top_pos + move_dir * 0.4
+		top_pos + move_dir * probe_dist
 	)
 	top_check.exclude = [self]
 	if not space.intersect_ray(top_check).is_empty():
 		return
 
 	var land_check = PhysicsRayQueryParameters3D.create(
-		top_pos + move_dir * 0.4,
-		top_pos + move_dir * 0.4 + Vector3.DOWN * STEP_HEIGHT
+		top_pos + move_dir * probe_dist,
+		top_pos + move_dir * probe_dist + Vector3.DOWN * STEP_HEIGHT
 	)
 	land_check.exclude = [self]
 	var land = space.intersect_ray(land_check)
 	if land.is_empty():
 		return
 
-	global_position.y = land.position.y + 0.01
+	var step_height = land["position"].y - global_position.y
+	if step_height < 0.01 or step_height > STEP_HEIGHT:
+		return
+
+	global_position.y = land["position"].y + 0.01

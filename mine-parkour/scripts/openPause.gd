@@ -6,7 +6,7 @@ func _input(event: InputEvent) -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		$".".call_deferred("show")
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if visible and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		$".".call_deferred("hide")
 		_flush_inputs()

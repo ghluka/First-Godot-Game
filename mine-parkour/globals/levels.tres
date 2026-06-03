@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_edcr6")
-levels = Array[String](["level_01.tscn"])
+levels = Array[String](["level_01.tscn", "level_02.tscn"])
 metadata/_custom_type_script = "uid://dnrmboncncya6"

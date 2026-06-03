@@ -92,7 +92,7 @@ environment = SubResource("Environment_ymt38")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=349444400]
 transform = Transform3D(1, 0, 0, 0, -0.819152, 0.5735764, 0, -0.5735764, -0.819152, 0, 7.4991713, 0)
-light_energy = 0.7
+light_energy = 0.25
 shadow_enabled = true
 shadow_opacity = 0.3
 shadow_blur = 10.0
@@ -126,6 +126,18 @@ script = ExtResource("6_1ey3t")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Portal/Area3D" unique_id=1744561571]
 shape = SubResource("BoxShape3D_ijn0p")
+
+[node name="Label" type="Label" parent="." unique_id=1838408076]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 85.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 8
+theme_override_font_sizes/font_size = 42
+text = "WASD to move, Space to jump"
+horizontal_alignment = 1
+vertical_alignment = 2
 
 [connection signal="body_entered" from="Lava" to="Lava" method="_on_body_entered"]
 [connection signal="body_entered" from="Portal/Area3D" to="Portal/Area3D" method="_on_body_entered"]
