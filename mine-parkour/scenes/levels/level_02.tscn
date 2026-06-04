@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://bjcwsxpniijkr" path="res://scripts/finish.gd" id="6_o4ql5"]
 [ext_resource type="Texture2D" uid="uid://x00oc0qflrs2" path="res://textures/sand.png" id="7_keemd"]
 [ext_resource type="Script" uid="uid://c07uyvaq7t0g8" path="res://scripts/sand.gd" id="8_ppbiy"]
+[ext_resource type="Script" uid="uid://b1yp71peoy2im" path="res://scripts/mobileHide.gd" id="9_c6rld"]
 
 [sub_resource type="Gradient" id="Gradient_qdh5e"]
 offsets = PackedFloat32Array(0.54942966, 0.57604563, 0.84220535)
@@ -902,6 +903,7 @@ theme_override_font_sizes/font_size = 42
 text = "Shift to sprint"
 horizontal_alignment = 1
 vertical_alignment = 2
+script = ExtResource("9_c6rld")
 
 [connection signal="body_entered" from="Lava" to="Lava" method="_on_body_entered"]
 [connection signal="body_entered" from="Portal/Area3D" to="Portal/Area3D" method="_on_body_entered"]

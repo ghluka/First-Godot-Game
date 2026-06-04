@@ -6,6 +6,7 @@
 [ext_resource type="Shader" uid="uid://d4lm7cpchrrrp" path="res://shaders/sky.gdshader" id="3_qdh5e"]
 [ext_resource type="Script" uid="uid://bjcwsxpniijkr" path="res://scripts/finish.gd" id="6_1ey3t"]
 [ext_resource type="Shader" uid="uid://bja8cfr8jg8d2" path="res://shaders/portal.gdshader" id="6_50wog"]
+[ext_resource type="Script" uid="uid://b1yp71peoy2im" path="res://scripts/mobileHide.gd" id="7_1ey3t"]
 
 [sub_resource type="Gradient" id="Gradient_qdh5e"]
 offsets = PackedFloat32Array(0.54942966, 0.57604563, 0.84220535)
@@ -138,6 +139,7 @@ theme_override_font_sizes/font_size = 42
 text = "WASD to move, Space to jump"
 horizontal_alignment = 1
 vertical_alignment = 2
+script = ExtResource("7_1ey3t")
 
 [connection signal="body_entered" from="Lava" to="Lava" method="_on_body_entered"]
 [connection signal="body_entered" from="Portal/Area3D" to="Portal/Area3D" method="_on_body_entered"]

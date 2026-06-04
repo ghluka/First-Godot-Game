@@ -32,11 +32,14 @@ var was_on_floor = false
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	if DisplayServer.is_touchscreen_available():
+		for action in ["pause", "move_forward", "move_back", "move_left", "move_right", "jump", "sprint", "sneak"]:
+			Input.action_release(action)
 
 func _unhandled_input(event):
 	if event.is_action_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	if not Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+	if not DisplayServer.is_touchscreen_available() and not Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		$PauseMenu.show()
 	if $PauseMenu.visible:
 		return

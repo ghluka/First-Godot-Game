@@ -1,7 +1,7 @@
 extends PanelContainer
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause"):
+	if not DisplayServer.is_touchscreen_available() and event.is_action_pressed("pause"):
 		Input.action_release("pause")
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		$".".call_deferred("show")
