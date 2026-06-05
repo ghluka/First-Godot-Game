@@ -29,6 +29,7 @@ var is_sneaking = false
 var coyote_timer = 0.0
 var jump_buffer_timer = 0.0
 var was_on_floor = false
+var on_ice := false
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -105,17 +106,18 @@ func _physics_process(delta):
 	if wish_dir.length() > 0:
 		wish_dir = wish_dir.normalized()
 	var h_vel = Vector3(velocity.x, 0, velocity.z)
+	var floor_friction = _get_floor_friction()
 
 	if on_floor:
 		if is_sneaking and input_dir != Vector3.ZERO and _is_sneak_edge():
 			h_vel = Vector3.ZERO
 		elif input_dir == Vector3.ZERO:
-			h_vel = h_vel.move_toward(Vector3.ZERO, GROUND_ACCEL * delta * 2.0)
+			h_vel = h_vel.move_toward(Vector3.ZERO, GROUND_ACCEL * floor_friction * delta * 2.0)
 			if h_vel.length() < 0.05:
 				h_vel = Vector3.ZERO
 		else:
 			var target = wish_dir * speed
-			h_vel = h_vel.move_toward(target, GROUND_ACCEL * delta)
+			h_vel = h_vel.move_toward(target, GROUND_ACCEL * floor_friction * delta)
 			_try_step_up(h_vel, delta)
 	else:
 		if input_dir == Vector3.ZERO:
@@ -125,6 +127,8 @@ func _physics_process(delta):
 			h_vel += wish_dir.normalized() * AIR_ACCEL * delta
 			var speed_after = h_vel.length()
 			if speed_after > speed and speed_after > speed_before:
+				if on_ice:
+					speed *= 1.5
 				h_vel = h_vel.normalized() * speed
 	if input_dir == Vector3.ZERO:
 		h_vel = h_vel.move_toward(Vector3.ZERO, 6.0 * delta)
@@ -218,3 +222,30 @@ func _try_step_up(h_vel: Vector3, _delta: float):
 		return
 
 	global_position.y = land["position"].y + 0.01
+
+func _get_floor_friction() -> float:
+	var space = get_world_3d().direct_space_state
+	var offsets = [
+		Vector3.ZERO,
+		Vector3(0.3, 0, 0),
+		Vector3(-0.3, 0, 0),
+		Vector3(0, 0, 0.3),
+		Vector3(0, 0, -0.3),
+	]
+	var air = 0
+	for offset in offsets:
+		var params = PhysicsRayQueryParameters3D.create(
+			global_position + Vector3.UP * 0.1 + offset,
+			global_position + Vector3.DOWN * 1.8 + offset
+		)
+		params.exclude = [self]
+		var result = space.intersect_ray(params)
+		if result.is_empty():
+			air += 1
+			continue
+		if result["collider"].is_in_group("ice"):
+			on_ice = true
+			return 0.02
+	if air < 5:
+		on_ice = false
+	return 1.0

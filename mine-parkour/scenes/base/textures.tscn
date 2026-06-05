@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://ovj526v54rr2" path="res://textures/stone_bricks.png" id="3_t3wv1"]
 [ext_resource type="Texture2D" uid="uid://bd4b6qn4l427k" path="res://textures/oak_planks.png" id="4_sqfok"]
 [ext_resource type="Texture2D" uid="uid://c627jueq12kba" path="res://textures/obsidian.png" id="5_t5xci"]
+[ext_resource type="Texture2D" uid="uid://corgiitcl5j4b" path="res://textures/ice_bricks.png" id="6_7taob"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_p0cqp"]
 
@@ -36,6 +37,12 @@ texture_filter = 0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3yjo8"]
 albedo_texture = ExtResource("5_t5xci")
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p2f7j"]
+albedo_texture = ExtResource("6_7taob")
 uv1_triplanar = true
 uv1_world_triplanar = true
 texture_filter = 0
@@ -89,4 +96,14 @@ surface_material_override/0 = SubResource("StandardMaterial3D_3yjo8")
 [node name="StaticBody3D" type="StaticBody3D" parent="Obsidian" unique_id=2021889259]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Obsidian/StaticBody3D" unique_id=1615878602]
+shape = SubResource("BoxShape3D_gv1bv")
+
+[node name="IceBricks" type="MeshInstance3D" parent="." unique_id=711424624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+mesh = SubResource("BoxMesh_p0cqp")
+surface_material_override/0 = SubResource("StandardMaterial3D_p2f7j")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="IceBricks" unique_id=275642306]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="IceBricks/StaticBody3D" unique_id=442750150]
 shape = SubResource("BoxShape3D_gv1bv")
