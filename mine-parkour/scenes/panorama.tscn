@@ -8,6 +8,7 @@
 [ext_resource type="Shader" uid="uid://bja8cfr8jg8d2" path="res://shaders/portal.gdshader" id="6_gutdt"]
 [ext_resource type="Script" uid="uid://b0028c8gr66gx" path="res://scripts/ui/main/src.gd" id="6_wp2r4"]
 [ext_resource type="Resource" uid="uid://4liwc1wgsxqg" path="res://globals/levels.tres" id="7_vvln3"]
+[ext_resource type="Script" uid="uid://clgijwpmly5k0" path="res://scripts/ui/main/splash.gd" id="8_f653d"]
 [ext_resource type="PackedScene" uid="uid://yapal5kn1gi0" path="res://scenes/settings.tscn" id="9_vvln3"]
 
 [sub_resource type="Gradient" id="Gradient_wp2r4"]
@@ -76,6 +77,25 @@ size = Vector3(1.1, 1.1, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aitob"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_5c2f7"]
+font_size = 90
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(4, 4)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ymt38"]
+font_size = 36
+font_color = Color(1, 1, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5c2f7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vvln3"]
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+
 [node name="Panorama" type="Node3D" unique_id=586318969]
 
 [node name="GridMap" type="GridMap" parent="." unique_id=1953787943]
@@ -126,43 +146,6 @@ script = ExtResource("5_0guyd")
 transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 0.2, 0, 5.5, -10.5)
 mesh = SubResource("BoxMesh_21xb6")
 
-[node name="MainMenu" type="PanelContainer" parent="." unique_id=1543498038]
-custom_minimum_size = Vector2(420, 360)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_aitob")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu" unique_id=2086135659]
-layout_mode = 2
-
-[node name="Play" type="Button" parent="MainMenu/VBoxContainer" unique_id=88432412]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 49
-text = "Level Select"
-
-[node name="Settings" type="Button" parent="MainMenu/VBoxContainer" unique_id=1190282080]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 49
-text = "Settings"
-
-[node name="Src" type="Button" parent="MainMenu/VBoxContainer" unique_id=321476216]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 49
-text = "Source Code"
-script = ExtResource("6_wp2r4")
-
 [node name="LevelSelect" type="PanelContainer" parent="." unique_id=572315276]
 visible = false
 custom_minimum_size = Vector2(700, 540)
@@ -199,13 +182,99 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 49
 text = "BACK"
 
+[node name="MainMenu" type="Control" parent="." unique_id=823233930]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MainMenu" unique_id=1543498038]
+custom_minimum_size = Vector2(420, 360)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -180.0
+offset_right = 210.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_aitob")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/PanelContainer" unique_id=2086135659]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainMenu/PanelContainer/VBoxContainer" unique_id=1092332737]
+layout_mode = 2
+text = "MineParkour"
+label_settings = SubResource("LabelSettings_5c2f7")
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="MainMenu/PanelContainer/VBoxContainer/Label" unique_id=1864890052]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -272.67456
+offset_top = -28.533272
+offset_right = 252.77448
+offset_bottom = 21.466736
+grow_horizontal = 0
+grow_vertical = 0
+rotation = -0.06981317
+text = "splash"
+label_settings = SubResource("LabelSettings_ymt38")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_f653d")
+
+[node name="HSeparator" type="HSeparator" parent="MainMenu/PanelContainer/VBoxContainer" unique_id=1479855264]
+layout_mode = 2
+theme_override_constants/separation = 36
+theme_override_styles/separator = SubResource("StyleBoxEmpty_5c2f7")
+
+[node name="Play" type="Button" parent="MainMenu/PanelContainer/VBoxContainer" unique_id=88432412]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 49
+text = "Play"
+
+[node name="Settings" type="Button" parent="MainMenu/PanelContainer/VBoxContainer" unique_id=1190282080]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 49
+text = "Settings"
+
+[node name="Label" type="Label" parent="MainMenu" unique_id=677885930]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 209.0
+grow_vertical = 0
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+text = "General Public License v2.0"
+label_settings = SubResource("LabelSettings_vvln3")
+script = ExtResource("6_wp2r4")
+
 [node name="Settings" parent="." unique_id=1416574310 instance=ExtResource("9_vvln3")]
+anchors_preset = 8
 
 [connection signal="body_entered" from="Lava" to="Lava" method="_on_body_entered"]
-[connection signal="pressed" from="MainMenu/VBoxContainer/Play" to="MainMenu" method="hide"]
-[connection signal="pressed" from="MainMenu/VBoxContainer/Play" to="LevelSelect" method="show"]
-[connection signal="pressed" from="MainMenu/VBoxContainer/Settings" to="MainMenu" method="hide"]
-[connection signal="pressed" from="MainMenu/VBoxContainer/Settings" to="Settings" method="show"]
-[connection signal="pressed" from="LevelSelect/MarginContainer/VBoxContainer/Button" to="MainMenu" method="show"]
 [connection signal="pressed" from="LevelSelect/MarginContainer/VBoxContainer/Button" to="LevelSelect" method="hide"]
+[connection signal="pressed" from="LevelSelect/MarginContainer/VBoxContainer/Button" to="MainMenu" method="show"]
+[connection signal="visibility_changed" from="MainMenu/PanelContainer/VBoxContainer/Label/Label" to="MainMenu/PanelContainer/VBoxContainer/Label/Label" method="_on_visibility_changed"]
+[connection signal="pressed" from="MainMenu/PanelContainer/VBoxContainer/Play" to="LevelSelect" method="show"]
+[connection signal="pressed" from="MainMenu/PanelContainer/VBoxContainer/Play" to="MainMenu" method="hide"]
+[connection signal="pressed" from="MainMenu/PanelContainer/VBoxContainer/Settings" to="Settings" method="show"]
+[connection signal="pressed" from="MainMenu/PanelContainer/VBoxContainer/Settings" to="MainMenu" method="hide"]
 [connection signal="hidden" from="Settings" to="MainMenu" method="show"]
