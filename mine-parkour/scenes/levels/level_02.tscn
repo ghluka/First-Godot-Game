@@ -98,9 +98,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 3)
 mesh_library = ExtResource("2_keemd")
 cell_size = Vector3(1, 1, 1)
 data = {
-"cells": PackedInt32Array(65535, 3, 1, 65535, 2, 1, 65534, 2, 1, 65534, 3, 1, 0, 3, 1, 0, 2, 1, 0, 4, 1, 65535, 4, 1, 65534, 4, 1, 1, 2, 1, 1, 3, 1, 65534, 1, 1, 65535, 1, 1, 0, 1, 1, 1, 1, 1, 65534, 65506, 196609, 65534, 65505, 196609, 65535, 65505, 196609, 0, 65505, 196609, 0, 65506, 196609, 65535, 65506, 196609, 65535, 65504, 131073, 0, 65504, 131073, 65534, 65504, 131073, 1, 65505, 196609, 1, 65506, 196609, 1, 65504, 131073, 1, 65503, 131073, 0, 65503, 131073, 65535, 65503, 131073, 65534, 65503, 131073, 131070, 65504, 196612, 131071, 65504, 196612, 65536, 65504, 196612, 65537, 65504, 196612, 196606, 65504, 196612, 131073, 65504, 196612, 196609, 65504, 196612, 262142, 65504, 196612, 327678, 65504, 196612, 262145, 65504, 196612, 393214, 65504, 458756, 393215, 65504, 458756, 327681, 65504, 458756, 327680, 65504, 458756, 1, 4, 1)
+"cells": PackedInt32Array(65535, 3, 1, 65535, 2, 1, 65534, 2, 1, 65534, 3, 1, 0, 3, 1, 0, 2, 1, 0, 4, 1, 65535, 4, 1, 65534, 4, 1, 1, 2, 1, 1, 3, 1, 65534, 1, 1, 65535, 1, 1, 0, 1, 1, 1, 1, 1, 65534, 65506, 196609, 65534, 65505, 196609, 65535, 65505, 196609, 0, 65505, 196609, 0, 65506, 196609, 65535, 65506, 196609, 1, 65505, 196609, 1, 65506, 196609, 1, 4, 1, 65535, 0, 0, 0, 0, 0, 131071, 65532, 0, 65536, 65532, 0, 0, 65535, 786432, 65535, 65535, 786432, 65536, 65531, 786432, 131071, 65531, 786432, 0, 65508, 786433, 65535, 65508, 786433, 65534, 65508, 786433, 65534, 65507, 786433, 65535, 65507, 786433, 0, 65507, 786433, 1, 65507, 786433, 1, 65508, 786433, 65537, 65506, 786436, 65536, 65506, 786436, 131071, 65506, 786436, 131070, 65506, 786436, 131073, 65506, 786436, 196606, 65506, 786436, 262142, 65506, 786436, 196609, 65506, 786436, 327678, 65506, 786436, 262145, 65506, 786436, 393215, 65506, 786436, 393214, 65506, 786436, 327680, 65506, 786436, 327681, 65506, 786436)
 }
-metadata/_editor_floor_ = Vector3(0, 0, 0)
+metadata/_editor_floor_ = Vector3(0, 1, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2118612556]
 environment = SubResource("Environment_ymt38")
@@ -133,7 +133,7 @@ light_specular = 0.0
 light_bake_mode = 1
 
 [node name="Portal" type="MeshInstance3D" parent="." unique_id=404175509]
-transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 0.2, 0, 3.5, -31.5)
+transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 0.2, 0, 3.5, -29.5)
 mesh = SubResource("BoxMesh_ymt38")
 
 [node name="Area3D" type="Area3D" parent="Portal" unique_id=96331741]
@@ -143,7 +143,7 @@ script = ExtResource("6_o4ql5")
 shape = SubResource("BoxShape3D_ijn0p")
 
 [node name="Sand" type="Area3D" parent="." unique_id=168620313]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.5, -7.5)
 script = ExtResource("8_ppbiy")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Sand" unique_id=1725462014]
@@ -167,11 +167,11 @@ shape = SubResource("BoxShape3D_c6rld")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sand" unique_id=2109631598]
 shape = SubResource("BoxShape3D_keemd")
 
-[node name="Sand2" type="Area3D" parent="." unique_id=1111229145]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.5)
+[node name="Sand2" type="Area3D" parent="." unique_id=1209634222]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, -7.5)
 script = ExtResource("8_ppbiy")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand2" unique_id=450426885]
+[node name="RigidBody3D" type="RigidBody3D" parent="Sand2" unique_id=68112633]
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
@@ -181,22 +181,22 @@ mass = 0.5
 gravity_scale = 2.0
 freeze = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand2/RigidBody3D" unique_id=1666983430]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand2/RigidBody3D" unique_id=1869198781]
 mesh = SubResource("BoxMesh_ppbiy")
 surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand2/RigidBody3D" unique_id=696234123]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand2/RigidBody3D" unique_id=918176261]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
 shape = SubResource("BoxShape3D_c6rld")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand2" unique_id=1975678908]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand2" unique_id=1947844314]
 shape = SubResource("BoxShape3D_keemd")
 
-[node name="Sand3" type="Area3D" parent="." unique_id=660850744]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1.5)
+[node name="Sand3" type="Area3D" parent="." unique_id=529030599]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.5, -8.5)
 script = ExtResource("8_ppbiy")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand3" unique_id=909598676]
+[node name="RigidBody3D" type="RigidBody3D" parent="Sand3" unique_id=490724919]
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
@@ -206,22 +206,22 @@ mass = 0.5
 gravity_scale = 2.0
 freeze = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand3/RigidBody3D" unique_id=866662256]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand3/RigidBody3D" unique_id=1490189264]
 mesh = SubResource("BoxMesh_ppbiy")
 surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand3/RigidBody3D" unique_id=1027827974]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand3/RigidBody3D" unique_id=902162674]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
 shape = SubResource("BoxShape3D_c6rld")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand3" unique_id=280185307]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand3" unique_id=1468826473]
 shape = SubResource("BoxShape3D_keemd")
 
-[node name="Sand4" type="Area3D" parent="." unique_id=1990273634]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -2.5)
+[node name="Sand4" type="Area3D" parent="." unique_id=973459714]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, -8.5)
 script = ExtResource("8_ppbiy")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand4" unique_id=1678172041]
+[node name="RigidBody3D" type="RigidBody3D" parent="Sand4" unique_id=1039732709]
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
@@ -231,22 +231,22 @@ mass = 0.5
 gravity_scale = 2.0
 freeze = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand4/RigidBody3D" unique_id=2031656977]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand4/RigidBody3D" unique_id=337713315]
 mesh = SubResource("BoxMesh_ppbiy")
 surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand4/RigidBody3D" unique_id=1041110961]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand4/RigidBody3D" unique_id=254490748]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
 shape = SubResource("BoxShape3D_c6rld")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand4" unique_id=181172614]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand4" unique_id=1641402128]
 shape = SubResource("BoxShape3D_keemd")
 
-[node name="Sand5" type="Area3D" parent="." unique_id=92679822]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -3.5)
+[node name="Sand5" type="Area3D" parent="." unique_id=869564552]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.5, -11.5)
 script = ExtResource("8_ppbiy")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand5" unique_id=2120348794]
+[node name="RigidBody3D" type="RigidBody3D" parent="Sand5" unique_id=361325612]
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
@@ -256,22 +256,22 @@ mass = 0.5
 gravity_scale = 2.0
 freeze = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand5/RigidBody3D" unique_id=296480050]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand5/RigidBody3D" unique_id=157115455]
 mesh = SubResource("BoxMesh_ppbiy")
 surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand5/RigidBody3D" unique_id=468177890]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand5/RigidBody3D" unique_id=1034557010]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
 shape = SubResource("BoxShape3D_c6rld")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand5" unique_id=331813009]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand5" unique_id=886029829]
 shape = SubResource("BoxShape3D_keemd")
 
-[node name="Sand6" type="Area3D" parent="." unique_id=980082086]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -4.5)
+[node name="Sand6" type="Area3D" parent="." unique_id=1747093442]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, -11.5)
 script = ExtResource("8_ppbiy")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand6" unique_id=1899272558]
+[node name="RigidBody3D" type="RigidBody3D" parent="Sand6" unique_id=1985069435]
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
@@ -281,22 +281,22 @@ mass = 0.5
 gravity_scale = 2.0
 freeze = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand6/RigidBody3D" unique_id=1853629318]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand6/RigidBody3D" unique_id=1804735531]
 mesh = SubResource("BoxMesh_ppbiy")
 surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand6/RigidBody3D" unique_id=2094279071]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand6/RigidBody3D" unique_id=1212563268]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
 shape = SubResource("BoxShape3D_c6rld")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand6" unique_id=1749636525]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand6" unique_id=634791938]
 shape = SubResource("BoxShape3D_keemd")
 
-[node name="Sand7" type="Area3D" parent="." unique_id=879739911]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -5.5)
+[node name="Sand7" type="Area3D" parent="." unique_id=1279715464]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.5, -12.5)
 script = ExtResource("8_ppbiy")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand7" unique_id=1582670575]
+[node name="RigidBody3D" type="RigidBody3D" parent="Sand7" unique_id=406787849]
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
@@ -306,22 +306,22 @@ mass = 0.5
 gravity_scale = 2.0
 freeze = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand7/RigidBody3D" unique_id=1872960568]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand7/RigidBody3D" unique_id=418958505]
 mesh = SubResource("BoxMesh_ppbiy")
 surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand7/RigidBody3D" unique_id=116226242]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand7/RigidBody3D" unique_id=781202717]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
 shape = SubResource("BoxShape3D_c6rld")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand7" unique_id=1962640518]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand7" unique_id=619016384]
 shape = SubResource("BoxShape3D_keemd")
 
-[node name="Sand8" type="Area3D" parent="." unique_id=1193517834]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -6.5)
+[node name="Sand8" type="Area3D" parent="." unique_id=1980296574]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, -12.5)
 script = ExtResource("8_ppbiy")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand8" unique_id=360902850]
+[node name="RigidBody3D" type="RigidBody3D" parent="Sand8" unique_id=1421357489]
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
@@ -331,22 +331,22 @@ mass = 0.5
 gravity_scale = 2.0
 freeze = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand8/RigidBody3D" unique_id=1109233441]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand8/RigidBody3D" unique_id=1895965361]
 mesh = SubResource("BoxMesh_ppbiy")
 surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand8/RigidBody3D" unique_id=319152955]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand8/RigidBody3D" unique_id=706820160]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
 shape = SubResource("BoxShape3D_c6rld")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand8" unique_id=1465257546]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand8" unique_id=911033481]
 shape = SubResource("BoxShape3D_keemd")
 
-[node name="Sand9" type="Area3D" parent="." unique_id=1957881125]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -7.5)
+[node name="Sand9" type="Area3D" parent="." unique_id=317920546]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.5, -15.5)
 script = ExtResource("8_ppbiy")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand9" unique_id=475821264]
+[node name="RigidBody3D" type="RigidBody3D" parent="Sand9" unique_id=1141919738]
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
@@ -356,22 +356,22 @@ mass = 0.5
 gravity_scale = 2.0
 freeze = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand9/RigidBody3D" unique_id=1365483737]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand9/RigidBody3D" unique_id=1536663223]
 mesh = SubResource("BoxMesh_ppbiy")
 surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand9/RigidBody3D" unique_id=429831874]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand9/RigidBody3D" unique_id=1095566960]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
 shape = SubResource("BoxShape3D_c6rld")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand9" unique_id=565018949]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand9" unique_id=1164766159]
 shape = SubResource("BoxShape3D_keemd")
 
-[node name="Sand10" type="Area3D" parent="." unique_id=1649597559]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -8.5)
+[node name="Sand10" type="Area3D" parent="." unique_id=1418038672]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, -15.5)
 script = ExtResource("8_ppbiy")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand10" unique_id=1914196921]
+[node name="RigidBody3D" type="RigidBody3D" parent="Sand10" unique_id=152841849]
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
@@ -381,22 +381,22 @@ mass = 0.5
 gravity_scale = 2.0
 freeze = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand10/RigidBody3D" unique_id=876432940]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand10/RigidBody3D" unique_id=2052367755]
 mesh = SubResource("BoxMesh_ppbiy")
 surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand10/RigidBody3D" unique_id=4007743]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand10/RigidBody3D" unique_id=665902615]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
 shape = SubResource("BoxShape3D_c6rld")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand10" unique_id=1899585563]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand10" unique_id=1556708223]
 shape = SubResource("BoxShape3D_keemd")
 
-[node name="Sand11" type="Area3D" parent="." unique_id=1213220028]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -9.5)
+[node name="Sand11" type="Area3D" parent="." unique_id=1574296661]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.5, -16.5)
 script = ExtResource("8_ppbiy")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand11" unique_id=1373380384]
+[node name="RigidBody3D" type="RigidBody3D" parent="Sand11" unique_id=1786811169]
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
@@ -406,22 +406,22 @@ mass = 0.5
 gravity_scale = 2.0
 freeze = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand11/RigidBody3D" unique_id=357162214]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand11/RigidBody3D" unique_id=814772699]
 mesh = SubResource("BoxMesh_ppbiy")
 surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand11/RigidBody3D" unique_id=1668501161]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand11/RigidBody3D" unique_id=1183580188]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
 shape = SubResource("BoxShape3D_c6rld")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand11" unique_id=884261820]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand11" unique_id=894335734]
 shape = SubResource("BoxShape3D_keemd")
 
-[node name="Sand12" type="Area3D" parent="." unique_id=1396716473]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -10.5)
+[node name="Sand12" type="Area3D" parent="." unique_id=1959871629]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, -16.5)
 script = ExtResource("8_ppbiy")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand12" unique_id=769170441]
+[node name="RigidBody3D" type="RigidBody3D" parent="Sand12" unique_id=1914759291]
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
@@ -431,22 +431,22 @@ mass = 0.5
 gravity_scale = 2.0
 freeze = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand12/RigidBody3D" unique_id=1891075532]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand12/RigidBody3D" unique_id=1817028024]
 mesh = SubResource("BoxMesh_ppbiy")
 surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand12/RigidBody3D" unique_id=1617322546]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand12/RigidBody3D" unique_id=1385061245]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
 shape = SubResource("BoxShape3D_c6rld")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand12" unique_id=847629944]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand12" unique_id=1686001486]
 shape = SubResource("BoxShape3D_keemd")
 
-[node name="Sand13" type="Area3D" parent="." unique_id=1118905843]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -11.5)
+[node name="Sand13" type="Area3D" parent="." unique_id=1423871577]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.5, -19.5)
 script = ExtResource("8_ppbiy")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand13" unique_id=784728429]
+[node name="RigidBody3D" type="RigidBody3D" parent="Sand13" unique_id=1355781671]
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
@@ -456,22 +456,22 @@ mass = 0.5
 gravity_scale = 2.0
 freeze = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand13/RigidBody3D" unique_id=175090727]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand13/RigidBody3D" unique_id=664987951]
 mesh = SubResource("BoxMesh_ppbiy")
 surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand13/RigidBody3D" unique_id=366813537]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand13/RigidBody3D" unique_id=1785747078]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
 shape = SubResource("BoxShape3D_c6rld")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand13" unique_id=845858918]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand13" unique_id=992823095]
 shape = SubResource("BoxShape3D_keemd")
 
-[node name="Sand14" type="Area3D" parent="." unique_id=1087515081]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -12.5)
+[node name="Sand14" type="Area3D" parent="." unique_id=631655768]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, -19.5)
 script = ExtResource("8_ppbiy")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand14" unique_id=592491732]
+[node name="RigidBody3D" type="RigidBody3D" parent="Sand14" unique_id=950303940]
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
@@ -481,22 +481,22 @@ mass = 0.5
 gravity_scale = 2.0
 freeze = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand14/RigidBody3D" unique_id=231274117]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand14/RigidBody3D" unique_id=1129082402]
 mesh = SubResource("BoxMesh_ppbiy")
 surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand14/RigidBody3D" unique_id=819105899]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand14/RigidBody3D" unique_id=662153617]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
 shape = SubResource("BoxShape3D_c6rld")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand14" unique_id=2083265760]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand14" unique_id=2092362262]
 shape = SubResource("BoxShape3D_keemd")
 
-[node name="Sand15" type="Area3D" parent="." unique_id=732716076]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -13.5)
+[node name="Sand15" type="Area3D" parent="." unique_id=369579239]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.5, -20.5)
 script = ExtResource("8_ppbiy")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand15" unique_id=1366797544]
+[node name="RigidBody3D" type="RigidBody3D" parent="Sand15" unique_id=1907011346]
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
@@ -506,22 +506,22 @@ mass = 0.5
 gravity_scale = 2.0
 freeze = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand15/RigidBody3D" unique_id=616663524]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand15/RigidBody3D" unique_id=104500778]
 mesh = SubResource("BoxMesh_ppbiy")
 surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand15/RigidBody3D" unique_id=551524060]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand15/RigidBody3D" unique_id=1606815530]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
 shape = SubResource("BoxShape3D_c6rld")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand15" unique_id=206562587]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand15" unique_id=526126668]
 shape = SubResource("BoxShape3D_keemd")
 
-[node name="Sand16" type="Area3D" parent="." unique_id=1018680283]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -14.5)
+[node name="Sand16" type="Area3D" parent="." unique_id=922212446]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, -20.5)
 script = ExtResource("8_ppbiy")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand16" unique_id=457469073]
+[node name="RigidBody3D" type="RigidBody3D" parent="Sand16" unique_id=449006919]
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
@@ -531,22 +531,22 @@ mass = 0.5
 gravity_scale = 2.0
 freeze = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand16/RigidBody3D" unique_id=1953177977]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand16/RigidBody3D" unique_id=1179826356]
 mesh = SubResource("BoxMesh_ppbiy")
 surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand16/RigidBody3D" unique_id=2104678543]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand16/RigidBody3D" unique_id=638350155]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
 shape = SubResource("BoxShape3D_c6rld")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand16" unique_id=723609502]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand16" unique_id=855398873]
 shape = SubResource("BoxShape3D_keemd")
 
-[node name="Sand17" type="Area3D" parent="." unique_id=603649768]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -15.5)
+[node name="Sand17" type="Area3D" parent="." unique_id=233009142]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.5, -23.5)
 script = ExtResource("8_ppbiy")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand17" unique_id=166240238]
+[node name="RigidBody3D" type="RigidBody3D" parent="Sand17" unique_id=96095580]
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
@@ -556,22 +556,22 @@ mass = 0.5
 gravity_scale = 2.0
 freeze = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand17/RigidBody3D" unique_id=536300197]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand17/RigidBody3D" unique_id=1266613854]
 mesh = SubResource("BoxMesh_ppbiy")
 surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand17/RigidBody3D" unique_id=99213833]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand17/RigidBody3D" unique_id=1219762566]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
 shape = SubResource("BoxShape3D_c6rld")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand17" unique_id=1023669773]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand17" unique_id=379102080]
 shape = SubResource("BoxShape3D_keemd")
 
-[node name="Sand18" type="Area3D" parent="." unique_id=1796113497]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -16.5)
+[node name="Sand18" type="Area3D" parent="." unique_id=1045177985]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, -23.5)
 script = ExtResource("8_ppbiy")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand18" unique_id=154260878]
+[node name="RigidBody3D" type="RigidBody3D" parent="Sand18" unique_id=131108266]
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
@@ -581,22 +581,22 @@ mass = 0.5
 gravity_scale = 2.0
 freeze = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand18/RigidBody3D" unique_id=935826795]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand18/RigidBody3D" unique_id=56941609]
 mesh = SubResource("BoxMesh_ppbiy")
 surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand18/RigidBody3D" unique_id=87040881]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand18/RigidBody3D" unique_id=1164916466]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
 shape = SubResource("BoxShape3D_c6rld")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand18" unique_id=30990286]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand18" unique_id=1293304275]
 shape = SubResource("BoxShape3D_keemd")
 
-[node name="Sand19" type="Area3D" parent="." unique_id=1596879144]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -17.5)
+[node name="Sand19" type="Area3D" parent="." unique_id=2089744970]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.5, -24.5)
 script = ExtResource("8_ppbiy")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand19" unique_id=965304]
+[node name="RigidBody3D" type="RigidBody3D" parent="Sand19" unique_id=2097873922]
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
@@ -606,22 +606,22 @@ mass = 0.5
 gravity_scale = 2.0
 freeze = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand19/RigidBody3D" unique_id=1751687629]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand19/RigidBody3D" unique_id=1685863956]
 mesh = SubResource("BoxMesh_ppbiy")
 surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand19/RigidBody3D" unique_id=948128987]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand19/RigidBody3D" unique_id=2131035074]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
 shape = SubResource("BoxShape3D_c6rld")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand19" unique_id=2093267622]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand19" unique_id=330009991]
 shape = SubResource("BoxShape3D_keemd")
 
-[node name="Sand20" type="Area3D" parent="." unique_id=70544495]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -18.5)
+[node name="Sand20" type="Area3D" parent="." unique_id=1232568139]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, -24.5)
 script = ExtResource("8_ppbiy")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand20" unique_id=1417450086]
+[node name="RigidBody3D" type="RigidBody3D" parent="Sand20" unique_id=810533060]
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
@@ -631,265 +631,15 @@ mass = 0.5
 gravity_scale = 2.0
 freeze = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand20/RigidBody3D" unique_id=1000569359]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand20/RigidBody3D" unique_id=1689138321]
 mesh = SubResource("BoxMesh_ppbiy")
 surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand20/RigidBody3D" unique_id=1007760928]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand20/RigidBody3D" unique_id=966795987]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
 shape = SubResource("BoxShape3D_c6rld")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand20" unique_id=1233404783]
-shape = SubResource("BoxShape3D_keemd")
-
-[node name="Sand21" type="Area3D" parent="." unique_id=313554444]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -19.5)
-script = ExtResource("8_ppbiy")
-
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand21" unique_id=986892579]
-axis_lock_linear_x = true
-axis_lock_linear_z = true
-axis_lock_angular_x = true
-axis_lock_angular_y = true
-axis_lock_angular_z = true
-mass = 0.5
-gravity_scale = 2.0
-freeze = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand21/RigidBody3D" unique_id=1383353211]
-mesh = SubResource("BoxMesh_ppbiy")
-surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand21/RigidBody3D" unique_id=623691834]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
-shape = SubResource("BoxShape3D_c6rld")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand21" unique_id=1150609211]
-shape = SubResource("BoxShape3D_keemd")
-
-[node name="Sand22" type="Area3D" parent="." unique_id=75486081]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -20.5)
-script = ExtResource("8_ppbiy")
-
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand22" unique_id=705392101]
-axis_lock_linear_x = true
-axis_lock_linear_z = true
-axis_lock_angular_x = true
-axis_lock_angular_y = true
-axis_lock_angular_z = true
-mass = 0.5
-gravity_scale = 2.0
-freeze = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand22/RigidBody3D" unique_id=1942612665]
-mesh = SubResource("BoxMesh_ppbiy")
-surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand22/RigidBody3D" unique_id=1571354375]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
-shape = SubResource("BoxShape3D_c6rld")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand22" unique_id=864448910]
-shape = SubResource("BoxShape3D_keemd")
-
-[node name="Sand23" type="Area3D" parent="." unique_id=2019002855]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -21.5)
-script = ExtResource("8_ppbiy")
-
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand23" unique_id=1589528684]
-axis_lock_linear_x = true
-axis_lock_linear_z = true
-axis_lock_angular_x = true
-axis_lock_angular_y = true
-axis_lock_angular_z = true
-mass = 0.5
-gravity_scale = 2.0
-freeze = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand23/RigidBody3D" unique_id=1808320978]
-mesh = SubResource("BoxMesh_ppbiy")
-surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand23/RigidBody3D" unique_id=1790345706]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
-shape = SubResource("BoxShape3D_c6rld")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand23" unique_id=1663008024]
-shape = SubResource("BoxShape3D_keemd")
-
-[node name="Sand24" type="Area3D" parent="." unique_id=1856145244]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -22.5)
-script = ExtResource("8_ppbiy")
-
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand24" unique_id=1554510207]
-axis_lock_linear_x = true
-axis_lock_linear_z = true
-axis_lock_angular_x = true
-axis_lock_angular_y = true
-axis_lock_angular_z = true
-mass = 0.5
-gravity_scale = 2.0
-freeze = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand24/RigidBody3D" unique_id=1360830440]
-mesh = SubResource("BoxMesh_ppbiy")
-surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand24/RigidBody3D" unique_id=304649247]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
-shape = SubResource("BoxShape3D_c6rld")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand24" unique_id=1501177414]
-shape = SubResource("BoxShape3D_keemd")
-
-[node name="Sand25" type="Area3D" parent="." unique_id=431806328]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -23.5)
-script = ExtResource("8_ppbiy")
-
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand25" unique_id=393807523]
-axis_lock_linear_x = true
-axis_lock_linear_z = true
-axis_lock_angular_x = true
-axis_lock_angular_y = true
-axis_lock_angular_z = true
-mass = 0.5
-gravity_scale = 2.0
-freeze = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand25/RigidBody3D" unique_id=595534696]
-mesh = SubResource("BoxMesh_ppbiy")
-surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand25/RigidBody3D" unique_id=1662854576]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
-shape = SubResource("BoxShape3D_c6rld")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand25" unique_id=1131506682]
-shape = SubResource("BoxShape3D_keemd")
-
-[node name="Sand26" type="Area3D" parent="." unique_id=1353340331]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -24.5)
-script = ExtResource("8_ppbiy")
-
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand26" unique_id=1189700186]
-axis_lock_linear_x = true
-axis_lock_linear_z = true
-axis_lock_angular_x = true
-axis_lock_angular_y = true
-axis_lock_angular_z = true
-mass = 0.5
-gravity_scale = 2.0
-freeze = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand26/RigidBody3D" unique_id=280312620]
-mesh = SubResource("BoxMesh_ppbiy")
-surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand26/RigidBody3D" unique_id=1362740555]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
-shape = SubResource("BoxShape3D_c6rld")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand26" unique_id=634129808]
-shape = SubResource("BoxShape3D_keemd")
-
-[node name="Sand27" type="Area3D" parent="." unique_id=895314386]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -25.5)
-script = ExtResource("8_ppbiy")
-
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand27" unique_id=1474566397]
-axis_lock_linear_x = true
-axis_lock_linear_z = true
-axis_lock_angular_x = true
-axis_lock_angular_y = true
-axis_lock_angular_z = true
-mass = 0.5
-gravity_scale = 2.0
-freeze = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand27/RigidBody3D" unique_id=1506783632]
-mesh = SubResource("BoxMesh_ppbiy")
-surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand27/RigidBody3D" unique_id=1352682273]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
-shape = SubResource("BoxShape3D_c6rld")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand27" unique_id=318517901]
-shape = SubResource("BoxShape3D_keemd")
-
-[node name="Sand28" type="Area3D" parent="." unique_id=292947329]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -26.5)
-script = ExtResource("8_ppbiy")
-
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand28" unique_id=1518809354]
-axis_lock_linear_x = true
-axis_lock_linear_z = true
-axis_lock_angular_x = true
-axis_lock_angular_y = true
-axis_lock_angular_z = true
-mass = 0.5
-gravity_scale = 2.0
-freeze = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand28/RigidBody3D" unique_id=1672727257]
-mesh = SubResource("BoxMesh_ppbiy")
-surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand28/RigidBody3D" unique_id=489197914]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
-shape = SubResource("BoxShape3D_c6rld")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand28" unique_id=1134647591]
-shape = SubResource("BoxShape3D_keemd")
-
-[node name="Sand29" type="Area3D" parent="." unique_id=513592377]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -27.5)
-script = ExtResource("8_ppbiy")
-
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand29" unique_id=380194711]
-axis_lock_linear_x = true
-axis_lock_linear_z = true
-axis_lock_angular_x = true
-axis_lock_angular_y = true
-axis_lock_angular_z = true
-mass = 0.5
-gravity_scale = 2.0
-freeze = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand29/RigidBody3D" unique_id=1273765294]
-mesh = SubResource("BoxMesh_ppbiy")
-surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand29/RigidBody3D" unique_id=1553126651]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
-shape = SubResource("BoxShape3D_c6rld")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand29" unique_id=486924005]
-shape = SubResource("BoxShape3D_keemd")
-
-[node name="Sand30" type="Area3D" parent="." unique_id=933717973]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -28.5)
-script = ExtResource("8_ppbiy")
-
-[node name="RigidBody3D" type="RigidBody3D" parent="Sand30" unique_id=1883512301]
-axis_lock_linear_x = true
-axis_lock_linear_z = true
-axis_lock_angular_x = true
-axis_lock_angular_y = true
-axis_lock_angular_z = true
-mass = 0.5
-gravity_scale = 2.0
-freeze = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sand30/RigidBody3D" unique_id=671391606]
-mesh = SubResource("BoxMesh_ppbiy")
-surface_material_override/0 = SubResource("StandardMaterial3D_5c2f7")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand30/RigidBody3D" unique_id=1353947319]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
-shape = SubResource("BoxShape3D_c6rld")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand30" unique_id=1951202672]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sand20" unique_id=991245899]
 shape = SubResource("BoxShape3D_keemd")
 
 [node name="Label" type="Label" parent="." unique_id=696733656]
@@ -927,13 +677,3 @@ script = ExtResource("9_c6rld")
 [connection signal="body_entered" from="Sand18" to="Sand18" method="_on_body_entered"]
 [connection signal="body_entered" from="Sand19" to="Sand19" method="_on_body_entered"]
 [connection signal="body_entered" from="Sand20" to="Sand20" method="_on_body_entered"]
-[connection signal="body_entered" from="Sand21" to="Sand21" method="_on_body_entered"]
-[connection signal="body_entered" from="Sand22" to="Sand22" method="_on_body_entered"]
-[connection signal="body_entered" from="Sand23" to="Sand23" method="_on_body_entered"]
-[connection signal="body_entered" from="Sand24" to="Sand24" method="_on_body_entered"]
-[connection signal="body_entered" from="Sand25" to="Sand25" method="_on_body_entered"]
-[connection signal="body_entered" from="Sand26" to="Sand26" method="_on_body_entered"]
-[connection signal="body_entered" from="Sand27" to="Sand27" method="_on_body_entered"]
-[connection signal="body_entered" from="Sand28" to="Sand28" method="_on_body_entered"]
-[connection signal="body_entered" from="Sand29" to="Sand29" method="_on_body_entered"]
-[connection signal="body_entered" from="Sand30" to="Sand30" method="_on_body_entered"]
