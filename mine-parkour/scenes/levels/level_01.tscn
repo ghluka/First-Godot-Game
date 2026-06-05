@@ -4,9 +4,9 @@
 [ext_resource type="MeshLibrary" uid="uid://cp6wmulvdgqpr" path="res://textures/blocks.meshlib" id="2_i2aat"]
 [ext_resource type="Shader" uid="uid://d0j4iavew45fw" path="res://shaders/lava.gdshader" id="3_2djvx"]
 [ext_resource type="Shader" uid="uid://d4lm7cpchrrrp" path="res://shaders/sky.gdshader" id="3_qdh5e"]
-[ext_resource type="Script" uid="uid://bjcwsxpniijkr" path="res://scripts/finish.gd" id="6_1ey3t"]
+[ext_resource type="Script" uid="uid://bjcwsxpniijkr" path="res://scripts/touch/finish.gd" id="6_1ey3t"]
 [ext_resource type="Shader" uid="uid://bja8cfr8jg8d2" path="res://shaders/portal.gdshader" id="6_50wog"]
-[ext_resource type="Script" uid="uid://b1yp71peoy2im" path="res://scripts/mobileHide.gd" id="7_1ey3t"]
+[ext_resource type="Script" uid="uid://b1yp71peoy2im" path="res://scripts/ui/mobile/mobileHide.gd" id="7_1ey3t"]
 
 [sub_resource type="Gradient" id="Gradient_qdh5e"]
 offsets = PackedFloat32Array(0.54942966, 0.57604563, 0.84220535)

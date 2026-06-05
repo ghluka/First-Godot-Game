@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dp5g5rjycmjly"]
 
-[ext_resource type="Script" uid="uid://dgbbegiiaf1r6" path="res://scripts/select.gd" id="1_sefkk"]
+[ext_resource type="Script" uid="uid://dgbbegiiaf1r6" path="res://scripts/ui/main/select.gd" id="1_sefkk"]
 [ext_resource type="Texture2D" uid="uid://br8w7y0c4m4o8" path="res://textures/lock.png" id="2_tevdf"]
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" unique_id=579464179]

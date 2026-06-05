@@ -88,6 +88,8 @@ func _physics_process(delta):
 		is_sprinting = false
 	if is_sprinting and _is_hitting_wall():
 		is_sprinting = false
+	if DisplayServer.is_touchscreen_available():
+		is_sprinting = true
 
 	var speed = SNEAK_SPEED if is_sneaking else (SPRINT_SPEED if is_sprinting else WALK_SPEED)
 

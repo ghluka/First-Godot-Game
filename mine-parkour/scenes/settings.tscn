@@ -1,11 +1,10 @@
 [gd_scene format=3 uid="uid://yapal5kn1gi0"]
 
-[ext_resource type="Script" uid="uid://eprc88ucpkud" path="res://scripts/sens.gd" id="1_5p8wc"]
+[ext_resource type="Script" uid="uid://eprc88ucpkud" path="res://scripts/ui/settings/sens.gd" id="1_5p8wc"]
 
 [node name="Settings" type="PanelContainer" unique_id=1416574310]
 visible = false
 custom_minimum_size = Vector2(700, 540)
-anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

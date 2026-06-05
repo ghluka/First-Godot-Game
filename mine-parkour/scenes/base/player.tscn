@@ -1,15 +1,17 @@
 [gd_scene format=3 uid="uid://d4nh1o8k50gqk"]
 
-[ext_resource type="Script" uid="uid://btjsw5xxm7v5s" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://btjsw5xxm7v5s" path="res://scripts/player/player.gd" id="1_3vyb7"]
 [ext_resource type="Shader" uid="uid://ch2jklbm5upym" path="res://shaders/crosshair.gdshader" id="2_g2els"]
-[ext_resource type="Script" uid="uid://ug3642tcjf8n" path="res://scripts/swing.gd" id="2_qhqgy"]
-[ext_resource type="Texture2D" uid="uid://bfds77i7txofs" path="res://textures/arm.png" id="3_dqkch"]
-[ext_resource type="Script" uid="uid://d2m0rgghv1qnj" path="res://scripts/openPause.gd" id="5_aitob"]
-[ext_resource type="Script" uid="uid://cod3yo0ev0cei" path="res://scripts/exit.gd" id="6_2hjov"]
+[ext_resource type="Script" uid="uid://ug3642tcjf8n" path="res://scripts/player/swing.gd" id="2_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://bfds77i7txofs" path="res://textures/player/arm.png" id="3_dqkch"]
+[ext_resource type="Script" uid="uid://d2m0rgghv1qnj" path="res://scripts/ui/pause/openPause.gd" id="5_aitob"]
+[ext_resource type="Script" uid="uid://cod3yo0ev0cei" path="res://scripts/ui/pause/exit.gd" id="6_2hjov"]
 [ext_resource type="PackedScene" uid="uid://yapal5kn1gi0" path="res://scenes/settings.tscn" id="6_aitob"]
-[ext_resource type="Script" uid="uid://d3w3wvcyfpwo2" path="res://scripts/resume.gd" id="6_mxeai"]
-[ext_resource type="Script" uid="uid://be8m1tbh21li" path="res://scripts/mobileOnly.gd" id="9_340i5"]
-[ext_resource type="Script" uid="uid://b1xfuv2vt2orw" path="res://scripts/touchbutton.gd" id="9_d4vbx"]
+[ext_resource type="Script" uid="uid://d3w3wvcyfpwo2" path="res://scripts/ui/pause/resume.gd" id="6_mxeai"]
+[ext_resource type="Script" uid="uid://be8m1tbh21li" path="res://scripts/ui/mobile/mobileOnly.gd" id="9_340i5"]
+[ext_resource type="Script" uid="uid://b1xfuv2vt2orw" path="res://scripts/ui/mobile/touchbutton.gd" id="9_d4vbx"]
+[ext_resource type="Texture2D" uid="uid://dav8fjlgtowhq" path="res://textures/ui/jump.png" id="10_by4t7"]
+[ext_resource type="Texture2D" uid="uid://cb0cs1lpby5f3" path="res://textures/ui/pause.png" id="12_i75jg"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_5c2f7"]
 
@@ -110,8 +112,9 @@ text = "Exit Level"
 script = ExtResource("6_2hjov")
 
 [node name="Settings" parent="." unique_id=1416574310 instance=ExtResource("6_aitob")]
+anchors_preset = 8
 
-[node name="Control" type="Control" parent="." unique_id=2117192186]
+[node name="MobileControls" type="Control" parent="." unique_id=2117192186]
 z_index = -1
 layout_mode = 3
 anchors_preset = 15
@@ -122,7 +125,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("9_340i5")
 
-[node name="VirtualJoystick" type="VirtualJoystick" parent="Control" unique_id=1978033558]
+[node name="VirtualJoystick" type="VirtualJoystick" parent="MobileControls" unique_id=1978033558]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -139,38 +142,38 @@ action_right = &"move_right"
 action_up = &"move_forward"
 action_down = &"move_back"
 
-[node name="Button2" type="Button" parent="Control" unique_id=2061067845]
+[node name="Jump" type="Button" parent="MobileControls" unique_id=2061067845]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -252.0
-offset_top = -158.0
-offset_right = -172.0
-offset_bottom = -78.0
+offset_left = -212.0
+offset_top = -188.0
+offset_right = -124.0
+offset_bottom = -100.0
 grow_horizontal = 0
 grow_vertical = 0
-toggle_mode = null
-text = "jump"
+icon = ExtResource("10_by4t7")
 script = ExtResource("9_d4vbx")
 action = &"jump"
 passby_press = true
-toggle_mode = null
 
-[node name="Button" type="Button" parent="Control" unique_id=1174513474]
+[node name="Pause" type="Button" parent="MobileControls" unique_id=1174513474]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -51.0
-offset_right = 51.0
-offset_bottom = 42.0
+offset_left = -44.0
+offset_right = 44.0
+offset_bottom = 88.0
 grow_horizontal = 2
-text = "pause"
+icon = ExtResource("12_i75jg")
+icon_alignment = 1
 
-[node name="Button3" type="Button" parent="Control" unique_id=435622613]
+[node name="Sprint" type="Button" parent="MobileControls" unique_id=435622613]
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -192,4 +195,4 @@ toggle_mode = true
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Settings" to="PauseMenu/VBoxContainer" method="hide"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Settings" to="Settings" method="show"]
 [connection signal="hidden" from="Settings" to="PauseMenu/VBoxContainer" method="show"]
-[connection signal="pressed" from="Control/Button" to="PauseMenu" method="show"]
+[connection signal="pressed" from="MobileControls/Pause" to="PauseMenu" method="show"]

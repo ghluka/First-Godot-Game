@@ -4,9 +4,9 @@
 [ext_resource type="Shader" uid="uid://d4lm7cpchrrrp" path="res://shaders/sky.gdshader" id="2_0guyd"]
 [ext_resource type="Shader" uid="uid://d0j4iavew45fw" path="res://shaders/lava.gdshader" id="4_21xb6"]
 [ext_resource type="Script" uid="uid://cvj4loiw3c2xq" path="res://scripts/panorama.gd" id="5_0guyd"]
-[ext_resource type="Script" uid="uid://cdw5itdytumc8" path="res://scripts/levelfill.gd" id="6_21xb6"]
+[ext_resource type="Script" uid="uid://cdw5itdytumc8" path="res://scripts/ui/main/levelfill.gd" id="6_21xb6"]
 [ext_resource type="Shader" uid="uid://bja8cfr8jg8d2" path="res://shaders/portal.gdshader" id="6_gutdt"]
-[ext_resource type="Script" uid="uid://b0028c8gr66gx" path="res://scripts/src.gd" id="6_wp2r4"]
+[ext_resource type="Script" uid="uid://b0028c8gr66gx" path="res://scripts/ui/main/src.gd" id="6_wp2r4"]
 [ext_resource type="Resource" uid="uid://4liwc1wgsxqg" path="res://globals/levels.tres" id="7_vvln3"]
 [ext_resource type="PackedScene" uid="uid://yapal5kn1gi0" path="res://scenes/settings.tscn" id="9_vvln3"]
 
