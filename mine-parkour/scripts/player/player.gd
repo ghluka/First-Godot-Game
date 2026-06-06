@@ -8,9 +8,6 @@ const GRAVITY = 28.0
 const FALL_GRAVITY_MULT = 1.6
 const GROUND_ACCEL = 40.0
 const AIR_ACCEL = 18.0
-const AIR_FRICTION = 1.0
-const GROUND_FRICTION = 18.0
-const MOVING_FRICTION = 8.0
 const STEP_HEIGHT = 0.6
 const COYOTE_TIME = 0.1
 const JUMP_BUFFER_TIME = 0.1
@@ -20,17 +17,26 @@ const FOV_SPRINT_BONUS = 10.0
 const FOV_SNEAK_PENALTY = 5.0
 const FOV_LERP_SPEED = 8.0
 
-@onready var head = $Head
-@onready var camera = $Head/Camera
-var camera_x_rotation = 0.0
+const HEAD_Y_STAND  = 0.65
+const HEAD_Y_CROUCH = 0.45
+const HEAD_LERP_SPEED = 12.0
 
+const CAPSULE_HEIGHT_STAND  = 1.8
+const CAPSULE_HEIGHT_CROUCH = 1.1
+
+@onready var head      = $Head
+@onready var camera    = $Head/Camera
+@onready var col_shape = $CollisionShape3D
+
+var camera_x_rotation = 0.0
+var wish_dir := Vector3.ZERO
 var is_sprinting = false
-var is_sneaking = false
-var coyote_timer = 0.0
+var is_sneaking  = false
+var coyote_timer      = 0.0
 var jump_buffer_timer = 0.0
-var was_on_floor = false
-var on_ice := false
-var last_velocity_y := 0.0
+var was_on_floor      = false
+var on_ice            := false
+var last_velocity_y   := 0.0
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -59,10 +65,10 @@ func _unhandled_input(event):
 func _physics_process(delta):
 	if $PauseMenu.visible:
 		return
+
 	var on_floor = is_on_floor()
 	var just_landed = on_floor and not was_on_floor
 
-	# Capture Y velocity at the very start of the frame before anything touches it
 	var pre_slide_vel_y = velocity.y
 
 	# Coyote time
@@ -95,6 +101,13 @@ func _physics_process(delta):
 	if DisplayServer.is_touchscreen_available():
 		is_sprinting = true
 
+	# Crouch
+	var target_head_y = HEAD_Y_CROUCH if is_sneaking else HEAD_Y_STAND
+	head.position.y = lerp(head.position.y, target_head_y, HEAD_LERP_SPEED * delta)
+	if col_shape.shape is CapsuleShape3D:
+		var target_height = CAPSULE_HEIGHT_CROUCH if is_sneaking else CAPSULE_HEIGHT_STAND
+		col_shape.shape.height = lerp(col_shape.shape.height, target_height, HEAD_LERP_SPEED * delta)
+
 	var speed = SNEAK_SPEED if is_sneaking else (SPRINT_SPEED if is_sprinting else WALK_SPEED)
 
 	var input_dir = Vector3(
@@ -104,24 +117,27 @@ func _physics_process(delta):
 	)
 
 	var flat_basis = Basis(Vector3.UP, head.rotation.y)
-	var wish_dir = flat_basis * input_dir
+	wish_dir = flat_basis * input_dir
 	wish_dir.y = 0
 	if wish_dir.length() > 0:
 		wish_dir = wish_dir.normalized()
+
 	var h_vel = Vector3(velocity.x, 0, velocity.z)
 	var floor_friction = _get_floor_friction()
 
 	if on_floor:
-		if is_sneaking and input_dir != Vector3.ZERO and _is_sneak_edge():
-			h_vel = Vector3.ZERO
-		elif input_dir == Vector3.ZERO:
+		if input_dir == Vector3.ZERO:
 			h_vel = h_vel.move_toward(Vector3.ZERO, GROUND_ACCEL * floor_friction * delta * 2.0)
 			if h_vel.length() < 0.05:
 				h_vel = Vector3.ZERO
+		elif is_sneaking and _is_sneak_edge():
+			if wish_dir.length() > 0.0:
+				h_vel -= h_vel.project(wish_dir)
 		else:
 			var target = wish_dir * speed
 			h_vel = h_vel.move_toward(target, GROUND_ACCEL * floor_friction * delta)
-			_try_step_up(h_vel, delta)
+			if not is_sneaking:
+				_try_step_up(h_vel, delta)
 	else:
 		if input_dir == Vector3.ZERO:
 			h_vel = h_vel.move_toward(Vector3.ZERO, 6.0 * delta)
@@ -133,8 +149,7 @@ func _physics_process(delta):
 				if on_ice:
 					speed *= 1.5
 				h_vel = h_vel.normalized() * speed
-	if input_dir == Vector3.ZERO:
-		h_vel = h_vel.move_toward(Vector3.ZERO, 6.0 * delta)
+
 	velocity.x = h_vel.x
 	velocity.z = h_vel.z
 
@@ -148,15 +163,28 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-	# Bounce: if we're on slime and were moving downward last frame, bounce
+	# Slime bounce
 	if is_on_floor() and _is_on_slime() and last_velocity_y < -0.5:
 		if is_sneaking:
-			velocity.y = 0.0  # Sneaking cancels bounce like Minecraft
+			velocity.y = 0.0
 		else:
 			velocity.y = -last_velocity_y * 0.8
 
 	_apply_fov(delta, h_vel.length(), speed)
 	last_velocity_y = velocity.y
+
+func _is_sneak_edge() -> bool:
+	var move_dir = wish_dir if wish_dir.length() > 0.1 else Vector3(velocity.x, 0, velocity.z).normalized()
+	if move_dir.length() < 0.1:
+		return false
+	var space = get_world_3d().direct_space_state
+	var check_pos = global_position + move_dir * 0.01
+	var params = PhysicsRayQueryParameters3D.create(
+		check_pos + Vector3.UP * 0.05,
+		check_pos + Vector3.DOWN * 1.5
+	)
+	params.exclude = [self]
+	return space.intersect_ray(params).is_empty()
 
 func _is_on_slime() -> bool:
 	var space = get_world_3d().direct_space_state
@@ -203,16 +231,6 @@ func _is_hitting_wall() -> bool:
 		if abs(col.get_normal().y) < 0.3:
 			return true
 	return false
-
-func _is_sneak_edge() -> bool:
-	var space = get_world_3d().direct_space_state
-	var check_pos = global_position + Vector3(velocity.x, 0, velocity.z).normalized() * 0.4
-	var params = PhysicsRayQueryParameters3D.create(
-		check_pos,
-		check_pos + Vector3.DOWN * 0.7
-	)
-	params.exclude = [self]
-	return space.intersect_ray(params).is_empty()
 
 func _try_step_up(h_vel: Vector3, _delta: float):
 	if h_vel.length() < 0.1:

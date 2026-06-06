@@ -275,6 +275,6 @@ anchors_preset = 8
 [connection signal="visibility_changed" from="MainMenu/PanelContainer/VBoxContainer/Label/Label" to="MainMenu/PanelContainer/VBoxContainer/Label/Label" method="_on_visibility_changed"]
 [connection signal="pressed" from="MainMenu/PanelContainer/VBoxContainer/Play" to="LevelSelect" method="show"]
 [connection signal="pressed" from="MainMenu/PanelContainer/VBoxContainer/Play" to="MainMenu" method="hide"]
-[connection signal="pressed" from="MainMenu/PanelContainer/VBoxContainer/Settings" to="Settings" method="show"]
 [connection signal="pressed" from="MainMenu/PanelContainer/VBoxContainer/Settings" to="MainMenu" method="hide"]
+[connection signal="pressed" from="MainMenu/PanelContainer/VBoxContainer/Settings" to="Settings" method="show"]
 [connection signal="hidden" from="Settings" to="MainMenu" method="show"]
