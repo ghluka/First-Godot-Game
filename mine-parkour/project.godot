@@ -32,6 +32,7 @@ project/assembly_name="MineParkour"
 
 player=""
 ice=""
+slime=""
 
 [input]
 

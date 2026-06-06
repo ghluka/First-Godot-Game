@@ -30,6 +30,7 @@ var coyote_timer = 0.0
 var jump_buffer_timer = 0.0
 var was_on_floor = false
 var on_ice := false
+var last_velocity_y := 0.0
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -53,7 +54,6 @@ func _unhandled_input(event):
 		head.rotate_y(-event.relative.x * Startup.mouse_sens)
 		camera_x_rotation -= event.relative.y * Startup.mouse_sens
 		camera_x_rotation = clamp(camera_x_rotation, -PI/2, PI/2)
-
 		camera.rotation.x = camera_x_rotation
 
 func _physics_process(delta):
@@ -61,6 +61,9 @@ func _physics_process(delta):
 		return
 	var on_floor = is_on_floor()
 	var just_landed = on_floor and not was_on_floor
+
+	# Capture Y velocity at the very start of the frame before anything touches it
+	var pre_slide_vel_y = velocity.y
 
 	# Coyote time
 	if on_floor:
@@ -136,16 +139,44 @@ func _physics_process(delta):
 	velocity.z = h_vel.z
 
 	var want_jump = Input.is_action_pressed("jump") and (just_landed or jump_buffer_timer > 0)
-
 	if want_jump and coyote_timer > 0:
 		velocity.y = JUMP_VELOCITY
 		coyote_timer = 0.0
 		jump_buffer_timer = 0.0
 
 	was_on_floor = on_floor
+
 	move_and_slide()
 
+	# Bounce: if we're on slime and were moving downward last frame, bounce
+	if is_on_floor() and _is_on_slime() and last_velocity_y < -0.5:
+		if is_sneaking:
+			velocity.y = 0.0  # Sneaking cancels bounce like Minecraft
+		else:
+			velocity.y = -last_velocity_y * 0.8
+
 	_apply_fov(delta, h_vel.length(), speed)
+	last_velocity_y = velocity.y
+
+func _is_on_slime() -> bool:
+	var space = get_world_3d().direct_space_state
+	var offsets = [
+		Vector3.ZERO,
+		Vector3(0.3, 0, 0),
+		Vector3(-0.3, 0, 0),
+		Vector3(0, 0, 0.3),
+		Vector3(0, 0, -0.3),
+	]
+	for offset in offsets:
+		var params = PhysicsRayQueryParameters3D.create(
+			global_position + offset,
+			global_position + offset + Vector3.DOWN * 1.2
+		)
+		params.exclude = [self]
+		var result = space.intersect_ray(params)
+		if not result.is_empty() and result["collider"].is_in_group("slime"):
+			return true
+	return false
 
 func _apply_fov(delta: float, h_speed: float, current_speed_cap: float):
 	var target_fov: float
@@ -246,6 +277,8 @@ func _get_floor_friction() -> float:
 		if result["collider"].is_in_group("ice"):
 			on_ice = true
 			return 0.02
+		if result["collider"].is_in_group("slime"):
+			return 0.4
 	if air < 5:
 		on_ice = false
 	return 1.0

@@ -1,0 +1,187 @@
+[gd_scene format=3 uid="uid://cfglamkjlpcwe"]
+
+[ext_resource type="PackedScene" uid="uid://d4nh1o8k50gqk" path="res://scenes/base/player.tscn" id="1_cw75u"]
+[ext_resource type="MeshLibrary" uid="uid://cp6wmulvdgqpr" path="res://textures/blocks.meshlib" id="2_gkpor"]
+[ext_resource type="Shader" uid="uid://d4lm7cpchrrrp" path="res://shaders/sky.gdshader" id="3_a0uur"]
+[ext_resource type="Texture2D" uid="uid://ggnmvj5fr56v" path="res://textures/goo.png" id="3_cw75u"]
+[ext_resource type="Shader" uid="uid://d0j4iavew45fw" path="res://shaders/lava.gdshader" id="4_yy4na"]
+[ext_resource type="Shader" uid="uid://bja8cfr8jg8d2" path="res://shaders/portal.gdshader" id="5_07dqf"]
+[ext_resource type="Script" uid="uid://bjcwsxpniijkr" path="res://scripts/touch/finish.gd" id="6_76vq8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_gkpor"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vew8d"]
+transparency = 1
+albedo_texture = ExtResource("3_cw75u")
+uv1_triplanar = true
+texture_filter = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a0uur"]
+
+[sub_resource type="Gradient" id="Gradient_qdh5e"]
+offsets = PackedFloat32Array(0.54942966, 0.57604563, 0.84220535)
+colors = PackedColorArray(0.9938981, 1, 0.89686763, 1, 0.987102, 1, 0.82886034, 1, 0.99976104, 0.9997609, 1.92523e-05, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_t0hvh"]
+gradient = SubResource("Gradient_qdh5e")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qdh5e"]
+shader = ExtResource("3_a0uur")
+shader_parameter/sky_top_color = Color(0.47843137, 0.72156864, 1, 1)
+shader_parameter/sky_horizon_color = Color(0.7529412, 0.9098039, 1, 1)
+shader_parameter/inv_sky_curve = 3.999999841054287
+shader_parameter/ground_bottom_color = Color(0.2, 0.169, 0.133, 1)
+shader_parameter/ground_horizon_color = Color(0.6463, 0.6558, 0.6708, 1)
+shader_parameter/inv_ground_curve = 30.0
+shader_parameter/sun_angle_max = 0.877
+shader_parameter/inv_sun_curve = 22.78
+shader_parameter/exposure = 1.0
+shader_parameter/sunCurve = SubResource("GradientTexture1D_t0hvh")
+shader_parameter/sunLayers = 5.0
+shader_parameter/sunSize = 0.1
+shader_parameter/sky_cover_modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="Sky" id="Sky_kfebt"]
+sky_material = SubResource("ShaderMaterial_qdh5e")
+
+[sub_resource type="Environment" id="Environment_ymt38"]
+background_mode = 2
+sky = SubResource("Sky_kfebt")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.7
+fog_aerial_perspective = 1.0
+
+[sub_resource type="GDScript" id="GDScript_21xb6"]
+script/source = "extends Area3D
+
+func _on_body_entered(body):
+	if body.is_in_group(\"player\"):
+		get_tree().call_deferred(\"reload_current_scene\")
+"
+
+[sub_resource type="BoxMesh" id="BoxMesh_5c2f7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i2aat"]
+render_priority = 0
+shader = ExtResource("4_yy4na")
+shader_parameter/pixel_size = 4.0
+shader_parameter/bubble_speed = 2.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ymt38"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r72dd"]
+render_priority = 0
+shader = ExtResource("5_07dqf")
+shader_parameter/time_speed = 1.0
+shader_parameter/distortion_strength = 0.35
+shader_parameter/swirl_speed = 1.5
+shader_parameter/pixel_size = 64.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_ymt38"]
+material = SubResource("ShaderMaterial_r72dd")
+size = Vector3(1.1, 1.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ijn0p"]
+size = Vector3(1.1, 1.1, 1)
+
+[node name="Node3D" type="Node3D" unique_id=445008130]
+
+[node name="Slime" type="MeshInstance3D" parent="." unique_id=1141336933]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -3.5)
+mesh = SubResource("BoxMesh_gkpor")
+surface_material_override/0 = SubResource("StandardMaterial3D_vew8d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Slime" unique_id=2132832697]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
+mesh = SubResource("BoxMesh_gkpor")
+surface_material_override/0 = SubResource("StandardMaterial3D_vew8d")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Slime" unique_id=832144081 groups=["slime"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Slime/StaticBody3D" unique_id=739724412]
+shape = SubResource("BoxShape3D_a0uur")
+
+[node name="Slime2" type="MeshInstance3D" parent="." unique_id=1542499653]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -11.5)
+mesh = SubResource("BoxMesh_gkpor")
+surface_material_override/0 = SubResource("StandardMaterial3D_vew8d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Slime2" unique_id=508754559]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
+mesh = SubResource("BoxMesh_gkpor")
+surface_material_override/0 = SubResource("StandardMaterial3D_vew8d")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Slime2" unique_id=1884589903 groups=["slime"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Slime2/StaticBody3D" unique_id=2066563390]
+shape = SubResource("BoxShape3D_a0uur")
+
+[node name="Slime3" type="MeshInstance3D" parent="." unique_id=959993119]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -19.5)
+mesh = SubResource("BoxMesh_gkpor")
+surface_material_override/0 = SubResource("StandardMaterial3D_vew8d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Slime3" unique_id=228258069]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
+mesh = SubResource("BoxMesh_gkpor")
+surface_material_override/0 = SubResource("StandardMaterial3D_vew8d")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Slime3" unique_id=518231888 groups=["slime"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Slime3/StaticBody3D" unique_id=71834657]
+shape = SubResource("BoxShape3D_a0uur")
+
+[node name="Player" parent="." unique_id=530100035 instance=ExtResource("1_cw75u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 3)
+
+[node name="GridMap" type="GridMap" parent="." unique_id=1257444207]
+mesh_library = ExtResource("2_gkpor")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(851968, 3, 589827, 917503, 3, 589827, 917503, 2, 589827, 851968, 2, 589827, 917502, 2, 589827, 917503, 1, 589827, 917502, 1, 589827, 851968, 1, 589827, 851969, 1, 589827, 851969, 2, 589827, 851968, 4, 589827, 851969, 4, 589827, 851969, 3, 589827, 917503, 4, 589827, 917502, 4, 589827, 917502, 3, 589827, 65534, 65511, 589827, 65534, 65510, 589827, 65534, 65509, 589827, 65534, 65508, 589827, 65535, 65508, 589827, 0, 65508, 589827, 1, 65508, 589827, 1, 65509, 589827, 1, 65510, 589827, 0, 65510, 589827, 0, 65511, 589827, 1, 65511, 589827, 65535, 65511, 589827, 65535, 65510, 589827, 65535, 65509, 589827, 0, 65509, 589827, 131070, 65509, 589828, 131071, 65509, 589828, 65536, 65509, 589828, 65537, 65509, 589828, 131073, 65509, 589828, 196606, 65509, 589828, 196609, 65509, 589828, 262142, 65509, 589828, 262145, 65509, 589828, 327678, 65509, 589828, 327681, 65509, 589828, 327680, 65509, 589828, 393215, 65509, 589828, 393214, 65509, 589828)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2118612556]
+environment = SubResource("Environment_ymt38")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=349444400]
+transform = Transform3D(1, 0, 0, 0, -0.819152, 0.5735764, 0, -0.5735764, -0.819152, 0, 7.4991713, 0)
+light_energy = 0.7
+shadow_enabled = true
+shadow_opacity = 0.3
+shadow_blur = 10.0
+
+[node name="Lava" type="Area3D" parent="." unique_id=427085392]
+transform = Transform3D(2048, 0, 0, 0, 1, 0, 0, 0, 2048, 0, -1.5, 0)
+script = SubResource("GDScript_21xb6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Lava" unique_id=1415350344]
+mesh = SubResource("BoxMesh_5c2f7")
+surface_material_override/0 = SubResource("ShaderMaterial_i2aat")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Lava" unique_id=402783672]
+shape = SubResource("BoxShape3D_ymt38")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Lava" unique_id=1830461471]
+transform = Transform3D(0.00048828125, 0, 0, 0, -0.000287005, -0.8670818, 0, 0.0004971072, -0.50061, 0, -5, 0)
+light_color = Color(0.972549, 0.26666668, 0.28235295, 1)
+light_energy = 0.5
+light_indirect_energy = 0.0
+light_angular_distance = 90.0
+light_specular = 0.0
+light_bake_mode = 1
+
+[node name="Portal" type="MeshInstance3D" parent="." unique_id=404175509]
+transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 0.2, 0, 3.5, -26.5)
+mesh = SubResource("BoxMesh_ymt38")
+
+[node name="Area3D" type="Area3D" parent="Portal" unique_id=96331741]
+script = ExtResource("6_76vq8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Portal/Area3D" unique_id=1744561571]
+shape = SubResource("BoxShape3D_ijn0p")
+
+[connection signal="body_entered" from="Lava" to="Lava" method="_on_body_entered"]
+[connection signal="body_entered" from="Portal/Area3D" to="Portal/Area3D" method="_on_body_entered"]
