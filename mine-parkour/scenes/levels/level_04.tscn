@@ -103,7 +103,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_vew8d")
 shape = SubResource("BoxShape3D_a0uur")
 
 [node name="Slime2" type="MeshInstance3D" parent="." unique_id=1542499653]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -11.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -9.5)
 mesh = SubResource("BoxMesh_gkpor")
 surface_material_override/0 = SubResource("StandardMaterial3D_vew8d")
 
@@ -118,7 +118,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_vew8d")
 shape = SubResource("BoxShape3D_a0uur")
 
 [node name="Slime3" type="MeshInstance3D" parent="." unique_id=959993119]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -19.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -15.5)
 mesh = SubResource("BoxMesh_gkpor")
 surface_material_override/0 = SubResource("StandardMaterial3D_vew8d")
 
@@ -130,6 +130,21 @@ surface_material_override/0 = SubResource("StandardMaterial3D_vew8d")
 [node name="StaticBody3D" type="StaticBody3D" parent="Slime3" unique_id=518231888 groups=["slime"]]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Slime3/StaticBody3D" unique_id=71834657]
+shape = SubResource("BoxShape3D_a0uur")
+
+[node name="Slime4" type="MeshInstance3D" parent="." unique_id=1061716683]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -21.5)
+mesh = SubResource("BoxMesh_gkpor")
+surface_material_override/0 = SubResource("StandardMaterial3D_vew8d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Slime4" unique_id=1132030684]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
+mesh = SubResource("BoxMesh_gkpor")
+surface_material_override/0 = SubResource("StandardMaterial3D_vew8d")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Slime4" unique_id=1609115386 groups=["slime"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Slime4/StaticBody3D" unique_id=451263552]
 shape = SubResource("BoxShape3D_a0uur")
 
 [node name="Player" parent="." unique_id=530100035 instance=ExtResource("1_cw75u")]

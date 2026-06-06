@@ -37,6 +37,7 @@ var jump_buffer_timer = 0.0
 var was_on_floor      = false
 var on_ice            := false
 var last_velocity_y   := 0.0
+var last_bounce_launch_y := 0.0
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -68,8 +69,6 @@ func _physics_process(delta):
 
 	var on_floor = is_on_floor()
 	var just_landed = on_floor and not was_on_floor
-
-	var pre_slide_vel_y = velocity.y
 
 	# Coyote time
 	if on_floor:
@@ -161,17 +160,25 @@ func _physics_process(delta):
 
 	was_on_floor = on_floor
 
+	var pre_slide_vel_y = velocity.y
 	move_and_slide()
 
 	# Slime bounce
-	if is_on_floor() and _is_on_slime() and last_velocity_y < -0.5:
+	if is_on_floor() and not _is_on_slime():
+		last_bounce_launch_y = 0.0
+	if is_on_floor() and _is_on_slime() and pre_slide_vel_y < -0.5:
 		if is_sneaking:
 			velocity.y = 0.0
 		else:
-			velocity.y = -last_velocity_y * 0.8
+			var bounce = -pre_slide_vel_y * 0.8
+			if last_bounce_launch_y > 0.0:
+				bounce = min(bounce, last_bounce_launch_y * 0.8)
+			velocity.y = bounce
+			last_bounce_launch_y = bounce
 
 	_apply_fov(delta, h_vel.length(), speed)
-	last_velocity_y = velocity.y
+	if velocity.y < 0:
+		last_velocity_y = velocity.y
 
 func _is_sneak_edge() -> bool:
 	var move_dir = wish_dir if wish_dir.length() > 0.1 else Vector3(velocity.x, 0, velocity.z).normalized()
@@ -194,11 +201,15 @@ func _is_on_slime() -> bool:
 		Vector3(-0.3, 0, 0),
 		Vector3(0, 0, 0.3),
 		Vector3(0, 0, -0.3),
+		Vector3(0.3, 0, 0.3),
+		Vector3(-0.3, 0, 0.3),
+		Vector3(0.3, 0, -0.3),
+		Vector3(-0.3, 0, -0.3),
 	]
 	for offset in offsets:
 		var params = PhysicsRayQueryParameters3D.create(
-			global_position + offset,
-			global_position + offset + Vector3.DOWN * 1.2
+			global_position + Vector3.UP * 0.1 + offset,
+			global_position + Vector3.DOWN * 1.8 + offset
 		)
 		params.exclude = [self]
 		var result = space.intersect_ray(params)
