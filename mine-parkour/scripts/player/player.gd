@@ -38,6 +38,8 @@ var was_on_floor      = false
 var on_ice            := false
 var last_velocity_y   := 0.0
 var last_bounce_launch_y := 0.0
+var camera_touch_index := -1
+var camera_touch_start := Vector2.ZERO
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -53,15 +55,38 @@ func _unhandled_input(event):
 	if $PauseMenu.visible:
 		return
 	Input.use_accumulated_input = false
-	if event is InputEventMouseButton and event.pressed:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	if event is InputEventMouseMotion:
-		if event.relative.length() > 100:
-			return
-		head.rotate_y(-event.relative.x * Startup.mouse_sens)
-		camera_x_rotation -= event.relative.y * Startup.mouse_sens
-		camera_x_rotation = clamp(camera_x_rotation, -PI/2, PI/2)
-		camera.rotation.x = camera_x_rotation
+	if not DisplayServer.is_touchscreen_available():
+		if event is InputEventMouseButton and event.pressed:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		if event is InputEventMouseMotion:
+			if event.relative.length() > 100:
+				return
+			head.rotate_y(-event.relative.x * Startup.mouse_sens)
+			camera_x_rotation -= event.relative.y * Startup.mouse_sens
+			camera_x_rotation = clamp(camera_x_rotation, -PI/2, PI/2)
+			camera.rotation.x = camera_x_rotation
+		return
+
+	var screen_width = get_viewport().get_visible_rect().size.x
+
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			if event.position.x > screen_width / 2.0 and camera_touch_index == -1:
+				camera_touch_index = event.index
+				camera_touch_start = event.position
+		else:
+			if event.index == camera_touch_index:
+				camera_touch_index = -1
+
+	if event is InputEventScreenDrag:
+		if event.index == camera_touch_index:
+			var rel = event.relative
+			if rel.length() > 100:
+				return
+			head.rotate_y(-rel.x * Startup.mouse_sens)
+			camera_x_rotation -= rel.y * Startup.mouse_sens
+			camera_x_rotation = clamp(camera_x_rotation, -PI/2, PI/2)
+			camera.rotation.x = camera_x_rotation
 
 func _physics_process(delta):
 	if $PauseMenu.visible:
