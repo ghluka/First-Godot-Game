@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ggnmvj5fr56v"
-path="res://.godot/imported/goo.png-4e0b4d958b237a939cd680926030ea8e.ctex"
+uid="uid://dwina4d1gc0wd"
+path="res://.godot/imported/magma.png-5ef2455da04ffc5e6d424eebc61153d7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/goo.png"
-dest_files=["res://.godot/imported/goo.png-4e0b4d958b237a939cd680926030ea8e.ctex"]
+source_file="res://textures/magma.png"
+dest_files=["res://.godot/imported/magma.png-5ef2455da04ffc5e6d424eebc61153d7.ctex"]
 
 [params]
 

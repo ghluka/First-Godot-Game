@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ggnmvj5fr56v"
-path="res://.godot/imported/goo.png-4e0b4d958b237a939cd680926030ea8e.ctex"
+uid="uid://c2vyrnt85serh"
+path="res://.godot/imported/bloodstone.png-ffc4f9f91e05b3f7a931ecb3b15095d2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/goo.png"
-dest_files=["res://.godot/imported/goo.png-4e0b4d958b237a939cd680926030ea8e.ctex"]
+source_file="res://textures/bloodstone.png"
+dest_files=["res://.godot/imported/bloodstone.png-ffc4f9f91e05b3f7a931ecb3b15095d2.ctex"]
 
 [params]
 
