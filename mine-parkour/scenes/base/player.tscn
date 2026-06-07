@@ -12,6 +12,8 @@
 [ext_resource type="Script" uid="uid://b1xfuv2vt2orw" path="res://scripts/ui/mobile/touchbutton.gd" id="9_d4vbx"]
 [ext_resource type="Texture2D" uid="uid://dav8fjlgtowhq" path="res://textures/ui/jump.png" id="10_by4t7"]
 [ext_resource type="Texture2D" uid="uid://cb0cs1lpby5f3" path="res://textures/ui/pause.png" id="12_i75jg"]
+[ext_resource type="AudioStream" uid="uid://do3wdq071pctn" path="res://sounds/oof.ogg" id="13_00juf"]
+[ext_resource type="AudioStream" uid="uid://bi1xlojclwxht" path="res://sounds/victory.ogg" id="14_jre47"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_5c2f7"]
 
@@ -194,6 +196,19 @@ text = "sprint"
 script = ExtResource("9_d4vbx")
 action = &"sprint"
 toggle_mode = true
+
+[node name="FootstepPlayer" type="AudioStreamPlayer3D" parent="." unique_id=286281707]
+volume_db = 8.0
+max_db = 6.0
+
+[node name="DeathPlayer" type="AudioStreamPlayer3D" parent="." unique_id=1345198376]
+stream = ExtResource("13_00juf")
+volume_db = 8.0
+max_db = 6.0
+
+[node name="VictoryPlayer" type="AudioStreamPlayer3D" parent="." unique_id=91508429]
+stream = ExtResource("14_jre47")
+volume_db = 4.0
 
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Settings" to="PauseMenu/VBoxContainer" method="hide"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Settings" to="Settings" method="show"]

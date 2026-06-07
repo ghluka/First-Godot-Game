@@ -6,7 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://ggnmvj5fr56v" path="res://textures/goo.png" id="3_cw75u"]
 [ext_resource type="Shader" uid="uid://d0j4iavew45fw" path="res://shaders/lava.gdshader" id="4_yy4na"]
 [ext_resource type="Shader" uid="uid://bja8cfr8jg8d2" path="res://shaders/portal.gdshader" id="5_07dqf"]
-[ext_resource type="Script" uid="uid://bjcwsxpniijkr" path="res://scripts/touch/finish.gd" id="6_76vq8"]
+[ext_resource type="Script" uid="uid://cu2qkt0ck65nl" path="res://scripts/world/kill.gd" id="5_gkpor"]
+[ext_resource type="Script" uid="uid://bjcwsxpniijkr" path="res://scripts/world/finish.gd" id="6_76vq8"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_gkpor"]
 
@@ -51,14 +52,6 @@ ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.7
 fog_aerial_perspective = 1.0
-
-[sub_resource type="GDScript" id="GDScript_21xb6"]
-script/source = "extends Area3D
-
-func _on_body_entered(body):
-	if body.is_in_group(\"player\"):
-		get_tree().call_deferred(\"reload_current_scene\")
-"
 
 [sub_resource type="BoxMesh" id="BoxMesh_5c2f7"]
 
@@ -170,7 +163,7 @@ shadow_blur = 10.0
 
 [node name="Lava" type="Area3D" parent="." unique_id=427085392]
 transform = Transform3D(2048, 0, 0, 0, 1, 0, 0, 0, 2048, 0, -1.5, 0)
-script = SubResource("GDScript_21xb6")
+script = ExtResource("5_gkpor")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Lava" unique_id=1415350344]
 mesh = SubResource("BoxMesh_5c2f7")

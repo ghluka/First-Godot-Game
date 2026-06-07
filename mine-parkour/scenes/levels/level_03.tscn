@@ -4,8 +4,9 @@
 [ext_resource type="MeshLibrary" uid="uid://cp6wmulvdgqpr" path="res://textures/blocks.meshlib" id="2_8w8tq"]
 [ext_resource type="Shader" uid="uid://d4lm7cpchrrrp" path="res://shaders/sky.gdshader" id="3_foqc1"]
 [ext_resource type="Shader" uid="uid://d0j4iavew45fw" path="res://shaders/lava.gdshader" id="4_dkd5g"]
+[ext_resource type="Script" uid="uid://cu2qkt0ck65nl" path="res://scripts/world/kill.gd" id="4_jgt0v"]
 [ext_resource type="Shader" uid="uid://bja8cfr8jg8d2" path="res://shaders/portal.gdshader" id="5_iaq7h"]
-[ext_resource type="Script" uid="uid://bjcwsxpniijkr" path="res://scripts/touch/finish.gd" id="6_iaubp"]
+[ext_resource type="Script" uid="uid://bjcwsxpniijkr" path="res://scripts/world/finish.gd" id="6_iaubp"]
 [ext_resource type="Texture2D" uid="uid://bujvbhvlchhig" path="res://textures/ice.png" id="8_jgt0v"]
 
 [sub_resource type="Gradient" id="Gradient_qdh5e"]
@@ -41,14 +42,6 @@ ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.7
 fog_aerial_perspective = 1.0
-
-[sub_resource type="GDScript" id="GDScript_21xb6"]
-script/source = "extends Area3D
-
-func _on_body_entered(body):
-	if body.is_in_group(\"player\"):
-		get_tree().call_deferred(\"reload_current_scene\")
-"
 
 [sub_resource type="BoxMesh" id="BoxMesh_5c2f7"]
 
@@ -111,7 +104,7 @@ shadow_blur = 10.0
 
 [node name="Lava" type="Area3D" parent="." unique_id=427085392]
 transform = Transform3D(2048, 0, 0, 0, 1, 0, 0, 0, 2048, 0, -1.5, 0)
-script = SubResource("GDScript_21xb6")
+script = ExtResource("4_jgt0v")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Lava" unique_id=1415350344]
 mesh = SubResource("BoxMesh_5c2f7")

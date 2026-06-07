@@ -7,8 +7,15 @@ var mouse_sens: float = 0.002
 
 var show_level_select_on_load = false
 
+var music_player: AudioStreamPlayer
+
 func _ready():
 	load_game()
+	music_player = AudioStreamPlayer.new()
+	add_child(music_player)
+	music_player.stream = preload("res://sounds/menu.ogg")
+	music_player.volume_db = 0.0
+	music_player.play()
 
 func save_game():
 	var cfg = ConfigFile.new()

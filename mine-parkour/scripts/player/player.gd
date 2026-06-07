@@ -24,9 +24,17 @@ const HEAD_LERP_SPEED = 12.0
 const CAPSULE_HEIGHT_STAND  = 1.8
 const CAPSULE_HEIGHT_CROUCH = 1.1
 
+const FOOTSTEP_INTERVAL_WALK   = 0.45
+const FOOTSTEP_INTERVAL_SPRINT = 0.30
+const FOOTSTEP_INTERVAL_SNEAK  = 0.65
+
 @onready var head      = $Head
 @onready var camera    = $Head/Camera
 @onready var col_shape = $CollisionShape3D
+
+@onready var footstep_player = $FootstepPlayer
+@onready var death_sound = $DeathPlayer
+@onready var victory_sound = $VictoryPlayer
 
 var camera_x_rotation = 0.0
 var wish_dir := Vector3.ZERO
@@ -41,7 +49,19 @@ var last_bounce_launch_y := 0.0
 var camera_touch_index := -1
 var camera_touch_start := Vector2.ZERO
 
+var footstep_sounds = []
+var footstep_timer = 0.0
+var last_footstep_idx = -1
+
 func _ready():
+	footstep_sounds = [
+		preload("res://sounds/stone1.ogg"),
+		preload("res://sounds/stone2.ogg"),
+		preload("res://sounds/stone3.ogg"),
+		preload("res://sounds/stone4.ogg"),
+		preload("res://sounds/stone5.ogg"),
+		preload("res://sounds/stone6.ogg"),
+	]
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	if DisplayServer.is_touchscreen_available():
 		for action in ["pause", "move_forward", "move_back", "move_left", "move_right", "jump", "sprint", "sneak"]:
@@ -202,6 +222,7 @@ func _physics_process(delta):
 			last_bounce_launch_y = bounce
 
 	_apply_fov(delta, h_vel.length(), speed)
+	_tick_footsteps(delta, h_vel.length())
 	if velocity.y < 0:
 		last_velocity_y = velocity.y
 
@@ -336,3 +357,47 @@ func _get_floor_friction() -> float:
 	if air < 5:
 		on_ice = false
 	return 1.0
+
+func _tick_footsteps(delta: float, h_speed: float):
+	if not is_on_floor() or h_speed < 0.5:
+		footstep_timer = 0.0
+		return
+
+	var interval = FOOTSTEP_INTERVAL_WALK
+	if is_sprinting:
+		interval = FOOTSTEP_INTERVAL_SPRINT
+	elif is_sneaking:
+		interval = FOOTSTEP_INTERVAL_SNEAK
+
+	footstep_timer -= delta
+	if footstep_timer <= 0.0:
+		footstep_timer = interval
+		_play_footstep()
+
+func _play_footstep():
+	var idx = randi() % footstep_sounds.size()
+	while footstep_sounds.size() > 1 and idx == last_footstep_idx:
+		idx = randi() % footstep_sounds.size()
+	last_footstep_idx = idx
+
+	footstep_player.stream = footstep_sounds[idx]
+	footstep_player.pitch_scale = randf_range(0.92, 1.08)  # slight pitch variation
+	footstep_player.play()
+
+func die():
+	set_physics_process(false)
+	set_process_unhandled_input(false)
+	death_sound.play()
+	await death_sound.finished
+	get_tree().reload_current_scene()
+
+func victory():
+	set_physics_process(false)
+	set_process_unhandled_input(false)
+	victory_sound.play()
+	await victory_sound.finished
+	var scene_name = get_tree().current_scene.scene_file_path.get_file()
+	var level_index = int(scene_name.lstrip("level_").rstrip(".tscn"))
+	Startup.complete_level(level_index)
+	Startup.show_level_select_on_load = true
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/panorama.tscn")
